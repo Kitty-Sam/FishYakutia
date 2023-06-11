@@ -1,0 +1,15 @@
+export const theme = {
+    PRIMARY_COLOR: '#000',
+    SECONDARY_COLOR: '#73737d',
+    TITLE_COLOR: '#fff',
+    SUBTITLE_COLOR: '#616F80',
+    BACKGROUND_COLOR: '#232033',
+    BUTTON_COLOR: '#26273B',
+    TEXT_COLOR: '#fff',
+    COLORED_BUTTON: '#FDC27A',
+    COUNTER_COLORED_BUTTON: 'rgba(253, 194, 122, 0.1)',
+    ICON_STAR_COLOR: '#e6cc00',
+    ICON_ALARM_COLOR: '#990f02',
+    WHITE: '#fff',
+    BLACK: '#000',
+};
