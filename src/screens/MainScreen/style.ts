@@ -1,8 +1,5 @@
 import styled from 'styled-components/native';
 
-export const RootContainer = styled.SafeAreaView`
-    flex: 1;
-`;
 export const Container = styled.TouchableOpacity`
     background-color: red;
     align-items: center;

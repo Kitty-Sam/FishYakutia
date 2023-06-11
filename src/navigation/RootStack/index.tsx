@@ -22,9 +22,9 @@ export const RootStack = () => {
                     } else if (route.name === RootStackNavigationName.MENU) {
                         iconName = focused ? 'book-sharp' : 'book-outline';
                     } else if (route.name === RootStackNavigationName.BASKET) {
-                        iconName = focused ? 'notifications-sharp' : 'notifications-outline';
+                        iconName = focused ? 'basket' : 'basket-outline';
                     } else if (route.name === RootStackNavigationName.INFO) {
-                        iconName = focused ? 'md-person-sharp' : 'md-person-outline';
+                        iconName = focused ? 'information-circle' : 'information-circle-outline';
                     }
                     return <Icon name={iconName} size={size} color={theme.COLORED_BUTTON} />;
                 },
