@@ -16,6 +16,10 @@
     {
       "path": "assets/fonts/Montserrat-SemiBold.ttf",
       "sha1": "8580dec824bbdb6ce24d04d3aaf360776339f0a7"
+    },
+    {
+      "path": "assets/fonts/Montserrat-Thin.ttf",
+      "sha1": "8c871991960f520a31635f95be6c346b659e2c8c"
     }
   ]
 }

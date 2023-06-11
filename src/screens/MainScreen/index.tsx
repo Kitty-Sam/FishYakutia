@@ -1,18 +1,31 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React, { FC } from 'react';
 import { RootContainer } from '~screens/style';
 import { Logo } from '~components/Logo';
+import { SemiBoldText } from '~components/SemiBoldText';
+import { Image } from '~screens/MainScreen/style';
+import { Gap } from '~components/Gap';
+import { AppButton } from '~components/Button';
+import { RegularText } from '~components/RegularText';
+import { MainScreenProps, RootStackNavigationName } from '~navigation/RootStack/type';
 
-export const MainScreen = () => {
+const group = require('../../../assets/images/group.png');
+
+export const MainScreen: FC<MainScreenProps> = ({ navigation }) => {
+    const onMenuPress = () => {
+        navigation.navigate(RootStackNavigationName.MENU);
+    };
+
     return (
         <RootContainer>
             <Logo />
-            <Text>Main</Text>
-            <Text style={{ fontFamily: 'Montserrat-Medium' }}>Hello, React Native with Google Fonts!</Text>
-            <Text style={{ fontFamily: 'Montserrat-Regular' }}>Hello, React Native with Google Fonts!</Text>
-            <Text style={{ fontFamily: 'Montserrat-Bold' }}>Hello, React Native with Google Fonts!</Text>
-            <Text style={{ fontFamily: 'Montserrat-SemiBold' }}>Hello, React Native with Google Fonts!</Text>
-            <Text>Hello, React Native with Google Fonts!</Text>
+            <SemiBoldText>Добро пожаловать</SemiBoldText>
+            <Gap scale={1.5} />
+            <Image source={group} />
+            <Gap scale={3} />
+            <AppButton title="В меню" onPress={onMenuPress} />
+            <RegularText>Магазин вкуснейшей рыбы в городе! Быстро доставим к Вам домой</RegularText>
+            <Gap scale={1} />
+            <RegularText>Санкт-Петербург, Ладожская улица, дом 1 +7 812 777 77 77 info@fishka.ru</RegularText>
         </RootContainer>
     );
 };

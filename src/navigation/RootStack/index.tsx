@@ -26,14 +26,16 @@ export const RootStack = () => {
                     } else if (route.name === RootStackNavigationName.INFO) {
                         iconName = focused ? 'information-circle' : 'information-circle-outline';
                     }
-                    return <Icon name={iconName} size={size} color={theme.COLORED_BUTTON} />;
+                    return <Icon name={iconName} size={size} color={theme.TAB_BAR_COLOR} />;
                 },
                 tabBarLabelStyle: {
                     color: theme.SECONDARY_COLOR,
+                    fontFamily: 'Montserrat-Thin',
+                    fontSize: 12,
                 },
-                tabBarStyle: {
-                    backgroundColor: theme.BUTTON_COLOR,
-                },
+                // tabBarStyle: {
+                //     backgroundColor: theme.BUTTON_COLOR,
+                // },
 
                 headerShown: false,
             })}

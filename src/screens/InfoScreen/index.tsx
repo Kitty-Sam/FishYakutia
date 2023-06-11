@@ -1,11 +1,13 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { MediumText } from '~components/MediumText';
+import { Logo } from '~components/Logo';
+import { RootContainer } from '~screens/style';
 
 export const InfoScreen = () => {
     return (
-        <SafeAreaView>
-            <Text>Info</Text>
-        </SafeAreaView>
+        <RootContainer>
+            <Logo />
+            <MediumText>Информация</MediumText>
+        </RootContainer>
     );
 };

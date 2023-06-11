@@ -1,3 +1,5 @@
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+
 export enum RootStackNavigationName {
     MAIN = 'Главная',
     MENU = 'Меню',
@@ -11,3 +13,5 @@ export type RootStackParamList = {
     [RootStackNavigationName.BASKET]: undefined;
     [RootStackNavigationName.INFO]: undefined;
 };
+
+export type MainScreenProps = BottomTabScreenProps<RootStackParamList, RootStackNavigationName.MAIN>;
