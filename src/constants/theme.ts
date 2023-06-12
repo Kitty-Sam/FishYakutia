@@ -5,6 +5,7 @@ export const theme = {
     BUTTON_COLOR: '#894AFF',
     BUTTON_TEXT_COLOR: '#fff',
     TEXT_COLOR: '#141414',
+    INFO_TEXT_COLOR: '#131123',
     CATEGORY_COLOR: '#5F5C79',
     CHOSEN_CATEGORY_COLOR: '#3D405B',
 };

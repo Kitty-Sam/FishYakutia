@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import { Text } from '~components/RegularText/style';
+import { Text } from '~components/RegularSmallText/style';
 
 interface IRegularText {
     color: string;
     children: any;
 }
 
-export const RegularText: FC<IRegularText> = ({ children, color }) => {
+export const RegularSmallText: FC<IRegularText> = ({ children, color }) => {
     return <Text color={color}>{children}</Text>;
 };

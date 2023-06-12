@@ -7,6 +7,8 @@ import { Gap } from '~components/Gap';
 import { AppButton } from '~components/Button';
 import { RegularText } from '~components/RegularText';
 import { MainScreenProps, RootStackNavigationName } from '~navigation/RootStack/type';
+import { theme } from '~constants/theme';
+import { RegularSmallText } from '~components/RegularSmallText';
 
 const group = require('../../../assets/images/group.png');
 
@@ -23,9 +25,13 @@ export const MainScreen: FC<MainScreenProps> = ({ navigation }) => {
             <Image source={group} />
             <Gap scale={3} />
             <AppButton title="В меню" onPress={onMenuPress} />
-            <RegularText>Магазин вкуснейшей рыбы в городе! Быстро доставим к Вам домой</RegularText>
+            <RegularSmallText color={theme.PRIMARY_COLOR}>
+                Магазин вкуснейшей рыбы в городе! Быстро доставим к Вам домой
+            </RegularSmallText>
             <Gap scale={1} />
-            <RegularText>Санкт-Петербург, Ладожская улица, дом 1 +7 812 777 77 77 info@fishka.ru</RegularText>
+            <RegularSmallText color={theme.PRIMARY_COLOR}>
+                Санкт-Петербург, Ладожская улица, дом 1 +7 812 777 77 77 info@fishka.ru
+            </RegularSmallText>
         </RootContainer>
     );
 };

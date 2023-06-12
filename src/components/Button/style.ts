@@ -3,7 +3,7 @@ import { theme } from '~constants/theme';
 
 export const ButtonContainer = styled.TouchableOpacity`
     background-color: ${theme.BUTTON_COLOR};
-    padding: 15px 20px;
+    padding: 2% 2%;
     border-radius: 12px;
     align-items: center;
     width: 70%;

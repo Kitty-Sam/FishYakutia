@@ -3,10 +3,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { RootStackNavigationName, RootStackParamList } from '~navigation/RootStack/type';
 import { MainScreen } from '~screens/MainScreen';
 import { MenuScreen } from '~screens/MenuScreen';
-import { BasketScreen } from '~screens/BasketScreen';
 import { InfoScreen } from '~screens/InfoScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { theme } from '~constants/theme';
+import { BasketStack } from '~navigation/BasketStack';
 
 export const Root = createBottomTabNavigator<RootStackParamList>();
 
@@ -21,7 +21,7 @@ export const RootStack = () => {
                         iconName = focused ? 'home' : 'home-outline';
                     } else if (route.name === RootStackNavigationName.MENU) {
                         iconName = focused ? 'book-sharp' : 'book-outline';
-                    } else if (route.name === RootStackNavigationName.BASKET) {
+                    } else if (route.name === RootStackNavigationName.BASKET_STACK) {
                         iconName = focused ? 'basket' : 'basket-outline';
                     } else if (route.name === RootStackNavigationName.INFO) {
                         iconName = focused ? 'information-circle' : 'information-circle-outline';
@@ -30,7 +30,7 @@ export const RootStack = () => {
                 },
                 tabBarLabelStyle: {
                     color: theme.SECONDARY_COLOR,
-                    fontFamily: 'Montserrat-Thin',
+                    fontFamily: 'Montserrat-Regular',
                     fontSize: 12,
                 },
                 // tabBarStyle: {
@@ -42,7 +42,7 @@ export const RootStack = () => {
         >
             <Root.Screen name={RootStackNavigationName.MAIN} component={MainScreen} />
             <Root.Screen name={RootStackNavigationName.MENU} component={MenuScreen} />
-            <Root.Screen name={RootStackNavigationName.BASKET} component={BasketScreen} />
+            <Root.Screen name={RootStackNavigationName.BASKET_STACK} component={BasketStack} />
             <Root.Screen name={RootStackNavigationName.INFO} component={InfoScreen} />
         </Root.Navigator>
     );
