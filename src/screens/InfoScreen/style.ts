@@ -1,14 +1,10 @@
 import styled from 'styled-components/native';
 
-export const Image = styled.Image`
-    width: 100%;
-    height: 287px;
-    object-fit: contain;
-`;
-
 export const RootContainer = styled.SafeAreaView`
     flex: 1;
     margin-left: 20px;
-    margin-right: 20px;
+`;
+
+export const CenteredView = styled.View`
     align-items: center;
 `;

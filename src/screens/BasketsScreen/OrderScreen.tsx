@@ -1,12 +1,12 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { RegularText } from '~components/RegularText';
 import { RootContainer } from '~screens/style';
 import { Logo } from '~components/Logo';
-import { MediumText } from '~components/MediumText';
-import { BasketStackNavigationName, OrderScreenProps } from '~navigation/BasketStack/type';
+import { BasketStackNavigationName } from '~navigation/BasketStack/type';
 import { AppButton } from '~components/Button';
 import { RootStackNavigationName } from '~navigation/RootStack/type';
 import { useNavigation } from '@react-navigation/native';
+import { theme } from '~constants/theme';
 
 export const OrderScreen = () => {
     const navigation = useNavigation<any>();
@@ -21,8 +21,14 @@ export const OrderScreen = () => {
     return (
         <RootContainer>
             <Logo />
-            <MediumText>Корзина</MediumText>
-            <RegularText color={'red'}>Order</RegularText>
+            <RegularText color={theme.PRIMARY_COLOR} fontFamily="Montserrat-Medium" fontSize={32}>
+                Корзина
+            </RegularText>
+
+            <RegularText color={theme.PRIMARY_COLOR} fontFamily="Montserrat-Regular" fontSize={32}>
+                Order
+            </RegularText>
+
             <AppButton title="Продолжить" onPress={onDetailsPress} />
 
             {/*<Icon name="emoji-sad" size={250} />*/}

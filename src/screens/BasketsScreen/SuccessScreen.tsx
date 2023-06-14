@@ -2,7 +2,6 @@ import React from 'react';
 import { RegularText } from '~components/RegularText';
 import { RootContainer } from '~screens/style';
 import { Logo } from '~components/Logo';
-import { MediumText } from '~components/MediumText';
 import { theme } from '~constants/theme';
 import { AppButton } from '~components/Button';
 import { useNavigation } from '@react-navigation/native';
@@ -16,8 +15,12 @@ export const SuccessScreen = () => {
     return (
         <RootContainer>
             <Logo />
-            <MediumText>Заказ № 435 оформлен</MediumText>
-            <RegularText color={theme.SECONDARY_COLOR}>Ожидайте звонка оператора</RegularText>
+            <RegularText color={theme.PRIMARY_COLOR} fontFamily="Montserrat-Medium" fontSize={32}>
+                Заказ № 435 оформлен
+            </RegularText>
+            <RegularText color={theme.SECONDARY_COLOR} fontFamily="Montserrat-Regular" fontSize={32}>
+                Ожидайте звонка оператора
+            </RegularText>
             <AppButton title="Спасибо" onPress={onClosePress} />
         </RootContainer>
     );

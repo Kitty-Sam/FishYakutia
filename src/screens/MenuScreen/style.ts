@@ -22,8 +22,40 @@ export const CategoriesContainer = styled.View`
     margin-top: 15px;
 `;
 
-export const CategoryText = styled.Text`
-    font-family: 'Montserrat-Regular';
-    font-size: 12px;
-    color: ${theme.BUTTON_TEXT_COLOR};
+export const RootContainer = styled.SafeAreaView`
+    flex: 1;
+`;
+
+export const CenteredView = styled.View`
+    align-items: center;
+`;
+
+export const FoodContainer = styled.View`
+    flex: 1;
+    padding: 20px;
+`;
+
+export const LeftMarginBlock = styled.View`
+    margin-left: 20px;
+`;
+
+export const FoodItemContainer = styled.View`
+    width: 160px;
+    background-color: ${theme.WHITE};
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 25px;
+`;
+
+export const FoodImage = styled.Image`
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    align-self: center;
+`;
+
+export const PriceContainer = styled.View`
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 `;

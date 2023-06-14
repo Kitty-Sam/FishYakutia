@@ -8,4 +8,6 @@ export const theme = {
     INFO_TEXT_COLOR: '#131123',
     CATEGORY_COLOR: '#5F5C79',
     CHOSEN_CATEGORY_COLOR: '#3D405B',
+    WHITE: '#fff',
+    PLACEHOLDER: '#BDBDBD',
 };
