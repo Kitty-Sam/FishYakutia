@@ -16,22 +16,73 @@ export interface IOrder {
 }
 
 export interface IBucket {
-    orders: IOrder[];
+    orderItems: {
+        foodId: number;
+        foodCount: number;
+        foodImage: string;
+        foodPrice: string;
+        foodName: string;
+    }[];
+    orderNumber: number;
 }
 
 const initialState: IBucket = {
-    orders: [],
+    orderItems: [],
+    orderNumber: 0,
 };
 
 export const basketSlice = createSlice({
     name: 'bucket',
     initialState,
     reducers: {
-        addOrder(state, { payload }: PayloadAction<{ orderItem: IOrder }>) {
-            return state;
+        addOrderItem(
+            state,
+            {
+                payload,
+            }: PayloadAction<{
+                orderItem: {
+                    foodId: number;
+                    foodCount: number;
+                    foodImage: string;
+                    foodPrice: string;
+                    foodName: string;
+                };
+            }>,
+        ) {
+            const currentOrder = state.orderItems.find((order) => order.foodId === payload.orderItem.foodId);
+            if (currentOrder) {
+                currentOrder.foodCount += 1;
+            } else {
+                state.orderItems = state.orderItems.concat(payload.orderItem);
+            }
+        },
+
+        removeOrderItem(
+            state,
+            {
+                payload,
+            }: PayloadAction<{
+                orderItem: { foodId: number; foodCount: number };
+            }>,
+        ) {
+            const currentOrder = state.orderItems.find((order) => order.foodId === payload.orderItem.foodId);
+            if (currentOrder) {
+                currentOrder.foodCount -= 1;
+                if (currentOrder.foodCount === 0) {
+                    state.orderItems = state.orderItems.filter((order) => order.foodId !== payload.orderItem.foodId);
+                }
+            }
+        },
+
+        clearBasket(state) {
+            state.orderItems = [];
+        },
+
+        setOrderNumber(state, action: PayloadAction<number>) {
+            state.orderNumber = action.payload;
         },
     },
 });
 
 export default basketSlice.reducer;
-export const { addOrder } = basketSlice.actions;
+export const { addOrderItem, removeOrderItem, clearBasket, setOrderNumber } = basketSlice.actions;

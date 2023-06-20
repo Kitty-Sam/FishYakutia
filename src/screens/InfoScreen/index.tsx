@@ -4,11 +4,13 @@ import { Gap } from '~components/Gap';
 import { RegularText } from '~components/RegularText';
 import { theme } from '~constants/theme';
 import { CenteredView, RootContainer } from '~screens/InfoScreen/style';
+import { Platform } from 'react-native';
 
 export const InfoScreen = () => {
     return (
         <RootContainer>
             <CenteredView>
+                {Platform.OS === 'android' && <Gap scale={0.5} />}
                 <Logo />
             </CenteredView>
             <Gap scale={1.5} />

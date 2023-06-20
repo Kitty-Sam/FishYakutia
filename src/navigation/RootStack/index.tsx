@@ -7,14 +7,19 @@ import { InfoScreen } from '~screens/InfoScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { theme } from '~constants/theme';
 import { BasketStack } from '~navigation/BasketStack';
+import { Badge } from '~components/Badge';
+import { useAppSelector } from '~store/store';
+import { getCurrentBadgeCount } from '~store/selectors';
 
 export const Root = createBottomTabNavigator<RootStackParamList>();
 
 export const RootStack = () => {
+    const badge = useAppSelector(getCurrentBadgeCount);
+
     return (
         <Root.Navigator
             screenOptions={({ route }) => ({
-                tabBarIcon: ({ focused, size }) => {
+                tabBarIcon: ({ focused }) => {
                     let iconName = 'home';
 
                     if (route.name === RootStackNavigationName.MAIN) {
@@ -26,7 +31,12 @@ export const RootStack = () => {
                     } else if (route.name === RootStackNavigationName.INFO) {
                         iconName = focused ? 'information-circle' : 'information-circle-outline';
                     }
-                    return <Icon name={iconName} size={size} color={theme.TAB_BAR_COLOR} />;
+                    return (
+                        <>
+                            <Icon name={iconName} size={24} color={theme.TAB_BAR_COLOR} />
+                            {route.name === RootStackNavigationName.BASKET_STACK && badge > 0 && <Badge />}
+                        </>
+                    );
                 },
                 tabBarLabelStyle: {
                     color: theme.SECONDARY_COLOR,

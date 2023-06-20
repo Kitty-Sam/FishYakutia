@@ -1,6 +1,7 @@
 export const theme = {
     PRIMARY_COLOR: '#141414',
     SECONDARY_COLOR: '#3D405B',
+    ERROR_COLOR: '#FF4F4B',
     TAB_BAR_COLOR: '#3D405B',
     BUTTON_COLOR: '#894AFF',
     BUTTON_TEXT_COLOR: '#fff',

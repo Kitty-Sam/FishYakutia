@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 
 import { Logo } from '~components/Logo';
-import { Image, RootContainer } from '~screens/MainScreen/style';
+import { CenteredContainer, Image, RootContainer } from '~screens/MainScreen/style';
 import { Gap } from '~components/Gap';
 import { AppButton } from '~components/Button';
 import { RegularText } from '~components/RegularText';
 import { MainScreenProps, RootStackNavigationName } from '~navigation/RootStack/type';
 import { theme } from '~constants/theme';
+import { Platform } from 'react-native';
 
 const group = require('../../../assets/images/group.png');
 
@@ -17,7 +18,10 @@ export const MainScreen: FC<MainScreenProps> = ({ navigation }) => {
 
     return (
         <RootContainer>
-            <Logo />
+            <CenteredContainer>
+                {Platform.OS === 'android' && <Gap scale={0.5} />}
+                <Logo />
+            </CenteredContainer>
             <Gap scale={0.5} />
             <RegularText
                 color={theme.PRIMARY_COLOR}
@@ -29,7 +33,6 @@ export const MainScreen: FC<MainScreenProps> = ({ navigation }) => {
             </RegularText>
             <Gap scale={1.5} />
             <Image source={group} />
-            <Gap scale={3} />
             <AppButton title="В меню" onPress={onMenuPress} />
             <Gap scale={3} />
             <RegularText

@@ -16,11 +16,15 @@ export interface ICategory {
 type FoodState = {
     foods: IFood[];
     categories: ICategory[];
+    filteredFoods: IFood[];
+    badgeCount: number;
 };
 
 const initialState: FoodState = {
     foods: [],
+    filteredFoods: [],
     categories: [],
+    badgeCount: 0,
 };
 
 const foodSlice = createSlice({
@@ -31,12 +35,30 @@ const foodSlice = createSlice({
             state.foods = action.payload;
         },
 
+        setFilteredFoods: (state, action: PayloadAction<IFood[]>) => {
+            state.filteredFoods = action.payload;
+        },
+
         setAllCategories: (state, action: PayloadAction<ICategory[]>) => {
             state.categories = action.payload;
+        },
+        setBadgeCount: (state, action: PayloadAction<number>) => {
+            state.badgeCount = action.payload;
+        },
+
+        addBadgeCount: (state) => {
+            state.badgeCount = state.badgeCount + 1;
+        },
+        removeBadgeCount: (state) => {
+            state.badgeCount = state.badgeCount - 1;
+        },
+        clearBadgeCount: (state) => {
+            state.badgeCount = 0;
         },
     },
 });
 
 export default foodSlice.reducer;
 
-export const { setAllFoods, setAllCategories } = foodSlice.actions;
+export const { setAllFoods, setAllCategories, setFilteredFoods, addBadgeCount, removeBadgeCount, clearBadgeCount } =
+    foodSlice.actions;

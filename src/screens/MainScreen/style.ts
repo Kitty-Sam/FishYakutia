@@ -12,3 +12,7 @@ export const RootContainer = styled.SafeAreaView`
     margin-right: 20px;
     align-items: center;
 `;
+
+export const CenteredContainer = styled.SafeAreaView`
+    align-items: center;
+`;

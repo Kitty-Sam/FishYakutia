@@ -1,15 +1,35 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { RegularText } from '~components/RegularText';
-import { RootContainer } from '~screens/style';
+
 import { Logo } from '~components/Logo';
 import { BasketStackNavigationName } from '~navigation/BasketStack/type';
 import { AppButton } from '~components/Button';
 import { RootStackNavigationName } from '~navigation/RootStack/type';
 import { useNavigation } from '@react-navigation/native';
 import { theme } from '~constants/theme';
+import {
+    CenteredView,
+    LeftView,
+    RootContainer,
+    RootContainerCentered,
+    RowContainer,
+} from '~screens/BasketsScreen/style';
+import { Gap } from '~components/Gap';
+import { getOrderItems } from '~store/selectors';
+import { useAppDispatch, useAppSelector } from '~store/store';
+import Icon from 'react-native-vector-icons/Entypo';
+import { FlatList, Platform } from 'react-native';
+import { OrderItem } from '~components/OrderItem';
+import { clearBasket } from '~store/slices/basketSlice';
+import { clearBadgeCount } from '~store/slices/foodSlice';
 
 export const OrderScreen = () => {
     const navigation = useNavigation<any>();
+
+    const orderItems = useAppSelector(getOrderItems);
+
+    const dispatch = useAppDispatch();
+
     const onDetailsPress = () => {
         navigation.navigate(BasketStackNavigationName.DETAILS);
     };
@@ -18,24 +38,68 @@ export const OrderScreen = () => {
         navigation.navigate(RootStackNavigationName.MENU);
     };
 
+    const onClearPress = () => {
+        dispatch(clearBasket());
+        dispatch(clearBadgeCount());
+    };
+
+    const renderOrderItem = useCallback(
+        ({
+            item,
+        }: {
+            item: { foodId: number; foodCount: number; foodImage: string; foodPrice: string; foodName: string };
+        }) => <OrderItem food={item} />,
+        [],
+    );
+
+    const totalPrice = orderItems.reduce((acc, obj) => acc + Number(obj.foodPrice) * obj.foodCount, 0);
+
     return (
         <RootContainer>
-            <Logo />
-            <RegularText color={theme.PRIMARY_COLOR} fontFamily="Montserrat-Medium" fontSize={32}>
-                Корзина
-            </RegularText>
+            <CenteredView>
+                {Platform.OS === 'android' && <Gap scale={0.5} />}
+                <Logo />
+            </CenteredView>
+            <Gap scale={1.5} />
+            <LeftView>
+                <RegularText color={theme.PRIMARY_COLOR} fontFamily="Montserrat-Medium" fontSize={32}>
+                    Корзина
+                </RegularText>
+            </LeftView>
 
-            <RegularText color={theme.PRIMARY_COLOR} fontFamily="Montserrat-Regular" fontSize={32}>
-                Order
-            </RegularText>
+            {!orderItems.length ? (
+                <RootContainerCentered>
+                    <Icon name="emoji-sad" size={250} />
+                    <Gap scale={2} />
+                    <RegularText color={theme.SECONDARY_COLOR} fontFamily="Montserrat-Regular" fontSize={24}>
+                        Ваша корзина пока пуста
+                    </RegularText>
+                    <Gap scale={4} />
+                    <AppButton title="Меню" onPress={onMenuPress} />
+                </RootContainerCentered>
+            ) : (
+                <RootContainer>
+                    <RowContainer>
+                        <RegularText color={theme.PRIMARY_COLOR} fontFamily="Montserrat-Medium" fontSize={24}>
+                            Заказ
+                        </RegularText>
 
-            <AppButton title="Продолжить" onPress={onDetailsPress} />
-
-            {/*<Icon name="emoji-sad" size={250} />*/}
-            {/*<Gap scale={2} />*/}
-            {/*<RegularText color={theme.SECONDARY_COLOR}>Ваша корзина пока пуста</RegularText>*/}
-            {/*<Gap scale={4} />*/}
-            {/*<AppButton title="Меню" onPress={onMenuPress} />*/}
+                        <RegularText
+                            color={theme.ERROR_COLOR}
+                            fontFamily="Montserrat-Medium"
+                            fontSize={24}
+                            onPress={onClearPress}
+                        >
+                            Очистить
+                        </RegularText>
+                    </RowContainer>
+                    <RootContainerCentered>
+                        <FlatList data={orderItems} renderItem={renderOrderItem} showsVerticalScrollIndicator={false} />
+                        <Gap scale={2} />
+                        <AppButton title={`Продолжить ${totalPrice} RUB`} onPress={onDetailsPress} />
+                    </RootContainerCentered>
+                </RootContainer>
+            )}
         </RootContainer>
     );
 };

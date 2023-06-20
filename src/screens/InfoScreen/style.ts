@@ -7,4 +7,5 @@ export const RootContainer = styled.SafeAreaView`
 
 export const CenteredView = styled.View`
     align-items: center;
+    margin-left: -20px;
 `;

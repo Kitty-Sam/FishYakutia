@@ -13,22 +13,34 @@ import {
     SearchBar,
 } from '~screens/MenuScreen/style';
 import { Gap } from '~components/Gap';
-import { FlatList } from 'react-native';
+import { FlatList, Platform } from 'react-native';
 import { theme } from '~constants/theme';
 import { RegularText } from '~components/RegularText';
-import { useGetAllCategoriesQuery, useGetAllFoodsQuery } from '~store/api/foodApi';
-import { IFood } from '~store/slices/foodSlice';
+import { useFilterFoodByCategoryIdMutation, useGetAllCategoriesQuery, useGetAllFoodsQuery } from '~store/api/foodApi';
+import { addBadgeCount, IFood, setFilteredFoods } from '~store/slices/foodSlice';
 import { SquareButton } from '~components/SquareButton';
+import { getAllCategories, getAllFoods, getFilteredFoods } from '~store/selectors';
+import { useAppDispatch, useAppSelector } from '~store/store';
+import { addOrderItem } from '~store/slices/basketSlice';
 
 export const MenuScreen = () => {
     const [search, setSearch] = useState('');
     const [category, setCategory] = useState('');
 
-    const { data: allFoods } = useGetAllFoodsQuery();
-    const { data: categories } = useGetAllCategoriesQuery();
+    const [filterFoodByCategoryId] = useFilterFoodByCategoryIdMutation();
 
-    const onAddFoodPositionPress = (id: number) => () => {
-        console.log('id food', id);
+    useGetAllFoodsQuery();
+    useGetAllCategoriesQuery();
+
+    const allFoods = useAppSelector(getAllFoods);
+    const categories = useAppSelector(getAllCategories);
+    const filteredFoods = useAppSelector(getFilteredFoods);
+
+    const dispatch = useAppDispatch();
+
+    const onAddFoodPositionPress = (foodId: number, foodImage: string, foodPrice: string, foodName: string) => () => {
+        dispatch(addBadgeCount());
+        dispatch(addOrderItem({ orderItem: { foodId, foodCount: 1, foodImage, foodPrice, foodName } }));
     };
 
     const renderCategoryItem = useCallback(
@@ -64,7 +76,10 @@ export const MenuScreen = () => {
                     <RegularText color={theme.PRIMARY_COLOR} fontSize={20} fontFamily="Montserrat-Bold">
                         {item.price} R
                     </RegularText>
-                    <SquareButton title="+" onPress={onAddFoodPositionPress(item.id)} />
+                    <SquareButton
+                        title="+"
+                        onPress={onAddFoodPositionPress(item.id, item.image, item.price, item.name)}
+                    />
                 </PriceContainer>
             </FoodItemContainer>
         ),
@@ -74,9 +89,9 @@ export const MenuScreen = () => {
     const onCategoryPress = (item: { id: number; title: string }) => async () => {
         setCategory(item.title);
         if (item.title === 'Все') {
-            // dispatch(setFavoriteFilteredFoods([]));
+            dispatch(setFilteredFoods([]));
         } else {
-            // await filterFavoriteFoodByCategory({ categoryId: item.id, userId: currentUser!.id }).unwrap();
+            await filterFoodByCategoryId({ categoryId: item.id }).unwrap();
         }
     };
 
@@ -84,6 +99,7 @@ export const MenuScreen = () => {
         <RootContainer>
             <LeftMarginBlock>
                 <CenteredView>
+                    {Platform.OS === 'android' && <Gap scale={0.5} />}
                     <Logo />
                 </CenteredView>
                 <Gap scale={1.5} />
@@ -107,8 +123,7 @@ export const MenuScreen = () => {
             </LeftMarginBlock>
             <FoodContainer>
                 <FlatList
-                    // data={filteredFoods.length ? filteredFoods : allFoods}
-                    data={allFoods}
+                    data={filteredFoods.length ? filteredFoods : allFoods}
                     renderItem={renderFoodItem}
                     numColumns={2}
                     columnWrapperStyle={{ justifyContent: 'space-between' }}

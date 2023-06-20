@@ -7,11 +7,12 @@ interface IRegularText {
     fontFamily: string;
     children: any;
     style?: any;
+    onPress?: any;
 }
 
-export const RegularText: FC<IRegularText> = ({ children, color, fontSize, fontFamily, style }) => {
+export const RegularText: FC<IRegularText> = ({ children, color, fontSize, fontFamily, style, onPress }) => {
     return (
-        <Text color={color} fontSize={fontSize} fontFamily={fontFamily} style={style}>
+        <Text color={color} fontSize={fontSize} fontFamily={fontFamily} style={style} onPress={onPress}>
             {children}
         </Text>
     );
