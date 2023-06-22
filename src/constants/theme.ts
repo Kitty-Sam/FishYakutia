@@ -11,4 +11,5 @@ export const theme = {
     CHOSEN_CATEGORY_COLOR: '#3D405B',
     WHITE: '#fff',
     PLACEHOLDER: '#BDBDBD',
+    SEPARATOR_COLOR: '#F28482',
 };

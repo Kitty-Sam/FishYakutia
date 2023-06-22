@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import { theme } from '~constants/theme';
 import {
     CenteredView,
+    ColumnContainer,
     LeftView,
     RootContainer,
     RootContainerCentered,
@@ -22,6 +23,7 @@ import { FlatList, Platform } from 'react-native';
 import { OrderItem } from '~components/OrderItem';
 import { clearBasket } from '~store/slices/basketSlice';
 import { clearBadgeCount } from '~store/slices/foodSlice';
+import { OrderSteps } from '~components/OrderSteps';
 
 export const OrderScreen = () => {
     const navigation = useNavigation<any>();
@@ -79,20 +81,30 @@ export const OrderScreen = () => {
                 </RootContainerCentered>
             ) : (
                 <RootContainer>
-                    <RowContainer>
-                        <RegularText color={theme.PRIMARY_COLOR} fontFamily="Montserrat-Medium" fontSize={24}>
-                            Заказ
-                        </RegularText>
+                    <ColumnContainer>
+                        <Gap scale={1} />
+                        <OrderSteps
+                            orderBgColor={theme.SECONDARY_COLOR}
+                            orderColor={theme.SECONDARY_COLOR}
+                            detailsColor={theme.PLACEHOLDER}
+                            detailsBgColor={theme.CATEGORY_COLOR}
+                        />
+                        <Gap scale={1} />
+                        <RowContainer>
+                            <RegularText color={theme.PRIMARY_COLOR} fontFamily="Montserrat-Medium" fontSize={24}>
+                                Заказ
+                            </RegularText>
 
-                        <RegularText
-                            color={theme.ERROR_COLOR}
-                            fontFamily="Montserrat-Medium"
-                            fontSize={24}
-                            onPress={onClearPress}
-                        >
-                            Очистить
-                        </RegularText>
-                    </RowContainer>
+                            <RegularText
+                                color={theme.ERROR_COLOR}
+                                fontFamily="Montserrat-Medium"
+                                fontSize={24}
+                                onPress={onClearPress}
+                            >
+                                Очистить
+                            </RegularText>
+                        </RowContainer>
+                    </ColumnContainer>
                     <RootContainerCentered>
                         <FlatList data={orderItems} renderItem={renderOrderItem} showsVerticalScrollIndicator={false} />
                         <Gap scale={2} />

@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { width } from '~constants/dimensions';
+import { theme } from '~constants/theme';
 
 export const FoodImage = styled.Image`
     width: 60px;
@@ -8,7 +9,7 @@ export const FoodImage = styled.Image`
 `;
 
 export const OrderItemContainer = styled.View`
-    background-color: white;
+    background-color: ${theme.WHITE};
     border-radius: 10px;
     margin-top: 20px;
     width: ${width * 0.9}px;
