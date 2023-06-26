@@ -19,9 +19,12 @@ import { RegularText } from '~components/RegularText';
 import { useFilterFoodByCategoryIdMutation, useGetAllCategoriesQuery, useGetAllFoodsQuery } from '~store/api/foodApi';
 import { addBadgeCount, IFood, setFilteredFoods } from '~store/slices/foodSlice';
 import { SquareButton } from '~components/Buttons/SquareButton';
-import { getAllCategories, getAllFoods, getFilteredFoods } from '~store/selectors';
+import { getAllCategories, getAllFoods, getFilteredFoods, getModalType } from '~store/selectors';
 import { useAppDispatch, useAppSelector } from '~store/store';
 import { addOrderItem } from '~store/slices/basketSlice';
+import { CustomModal } from '~components/CustomModal';
+
+import { Match } from '~components/Modals/Match';
 
 export const MenuScreen = () => {
     const [search, setSearch] = useState('');
@@ -35,6 +38,7 @@ export const MenuScreen = () => {
     const allFoods = useAppSelector(getAllFoods);
     const categories = useAppSelector(getAllCategories);
     const filteredFoods = useAppSelector(getFilteredFoods);
+    const modalType = useAppSelector(getModalType);
 
     const dispatch = useAppDispatch();
 
@@ -130,6 +134,12 @@ export const MenuScreen = () => {
                     showsVerticalScrollIndicator={false}
                 />
             </FoodContainer>
+
+            {modalType === 'match' && (
+                <CustomModal>
+                    <Match />
+                </CustomModal>
+            )}
         </RootContainer>
     );
 };

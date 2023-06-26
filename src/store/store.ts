@@ -4,11 +4,13 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import foodReducer from './slices/foodSlice';
 import basketReducer from './slices/basketSlice';
+import modalReducer from './slices/modalSlice';
 import { foodsApi } from '~store/api/foodApi';
 
 const rootReducer = combineReducers({
     foodStore: foodReducer,
     basketStore: basketReducer,
+    modalStore: modalReducer,
     [foodsApi.reducerPath]: foodsApi.reducer,
 });
 

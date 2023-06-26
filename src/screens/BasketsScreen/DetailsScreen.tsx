@@ -6,7 +6,7 @@ import { theme } from '~constants/theme';
 import { useAppDispatch, useAppSelector } from '~store/store';
 import { clearBasket } from '~store/slices/basketSlice';
 import { useCreateOrderMutation } from '~store/api/foodApi';
-import { getOrderItems } from '~store/selectors';
+import { getModalType, getOrderItems } from '~store/selectors';
 import { clearBadgeCount } from '~store/slices/foodSlice';
 import { Platform } from 'react-native';
 import { Gap } from '~components/Gap';
@@ -19,6 +19,8 @@ import {
     RowContainer,
 } from '~screens/BasketsScreen/style';
 import { Form } from '~components/Form';
+import { Error } from '~components/Modals/Error';
+import { CustomModal } from '~components/CustomModal';
 
 export const DetailsScreen: FC<DetailsScreenProps> = ({ navigation }) => {
     const dispatch = useAppDispatch();
@@ -55,6 +57,8 @@ export const DetailsScreen: FC<DetailsScreenProps> = ({ navigation }) => {
         dispatch(clearBadgeCount());
         navigation.navigate(BasketStackNavigationName.ORDER);
     };
+
+    const modalType = useAppSelector(getModalType);
 
     return (
         <RootContainer>
@@ -96,6 +100,12 @@ export const DetailsScreen: FC<DetailsScreenProps> = ({ navigation }) => {
             <RootContainerCentered>
                 <Form onOrderPress={onOrderPress} />
             </RootContainerCentered>
+
+            {modalType === 'error' && (
+                <CustomModal>
+                    <Error />
+                </CustomModal>
+            )}
         </RootContainer>
     );
 };
