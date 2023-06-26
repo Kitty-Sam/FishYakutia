@@ -10,6 +10,7 @@ import { BasketStack } from '~navigation/BasketStack';
 import { Badge } from '~components/Badge';
 import { useAppSelector } from '~store/store';
 import { getCurrentBadgeCount } from '~store/selectors';
+import { styles } from '~navigation/RootStack/style';
 
 export const Root = createBottomTabNavigator<RootStackParamList>();
 
@@ -38,14 +39,8 @@ export const RootStack = () => {
                         </>
                     );
                 },
-                tabBarLabelStyle: {
-                    color: theme.SECONDARY_COLOR,
-                    fontFamily: 'Montserrat-Regular',
-                    fontSize: 12,
-                },
-                // tabBarStyle: {
-                //     backgroundColor: theme.BUTTON_COLOR,
-                // },
+                tabBarLabelStyle: styles.tabBarLabelStyle,
+                tabBarStyle: styles.tabBarStyle,
 
                 headerShown: false,
             })}
