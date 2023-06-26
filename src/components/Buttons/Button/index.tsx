@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
-import { ButtonContainer, ButtonText } from '~components/SquareButton/style';
+import { ButtonContainer, ButtonText } from '~components/Buttons/Button/style';
 
 export interface IButton {
     title: string;
     onPress: any;
 }
 
-export const SquareButton: FC<IButton> = ({ title, onPress }) => {
+export const AppButton: FC<IButton> = ({ title, onPress }) => {
     return (
         <ButtonContainer onPress={onPress}>
             <ButtonText>{title}</ButtonText>

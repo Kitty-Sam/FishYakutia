@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
 
 export const LeftView = styled.View`
     margin-left: 20px;
@@ -29,3 +30,16 @@ export const ColumnContainer = styled.View`
     margin-left: 20px;
     margin-right: 20px;
 `;
+export const OkImage = styled.Image`
+    width: 100px;
+    height: 100px;
+`;
+export const stylesSuccess = StyleSheet.create({
+    titleText: {
+        textAlign: 'center',
+        width: 200,
+    },
+    operatorText: {
+        textAlign: 'center',
+    },
+});

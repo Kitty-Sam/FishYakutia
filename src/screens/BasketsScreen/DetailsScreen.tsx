@@ -2,13 +2,11 @@ import React, { FC } from 'react';
 import { RegularText } from '~components/RegularText';
 import { Logo } from '~components/Logo';
 import { BasketStackNavigationName, DetailsScreenProps } from '~navigation/BasketStack/type';
-import { AppButton } from '~components/Button';
 import { theme } from '~constants/theme';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { useAppDispatch, useAppSelector } from '~store/store';
 import { clearBasket } from '~store/slices/basketSlice';
 import { useCreateOrderMutation } from '~store/api/foodApi';
-import { getOrderItems } from '~store/selectors';
+import { getModalType, getOrderItems } from '~store/selectors';
 import { clearBadgeCount } from '~store/slices/foodSlice';
 import { Platform } from 'react-native';
 import { Gap } from '~components/Gap';
@@ -21,6 +19,8 @@ import {
     RowContainer,
 } from '~screens/BasketsScreen/style';
 import { Form } from '~components/Form';
+import { Error } from '~components/Modals/Error';
+import { CustomModal } from '~components/CustomModal';
 
 export const DetailsScreen: FC<DetailsScreenProps> = ({ navigation }) => {
     const dispatch = useAppDispatch();
@@ -30,11 +30,19 @@ export const DetailsScreen: FC<DetailsScreenProps> = ({ navigation }) => {
 
     const totalPrice = orderItems.reduce((acc, obj) => acc + Number(obj.foodPrice) * obj.foodCount, 0);
 
-    const onOrderPress = async () => {
+    const onOrderPress = async (
+        name: string,
+        phone: string,
+        address: string,
+        comment: string,
+        paymentMethod: string,
+    ) => {
         await createOrder({
-            userName: 'Olga',
-            userPhone: '123',
-            userAddress: 'Minsk',
+            userName: name,
+            userPhone: phone,
+            userAddress: address,
+            paymentMethod: paymentMethod,
+            comment: comment,
             totalAmount: String(totalPrice),
             orderItems,
         }).unwrap();
@@ -44,15 +52,13 @@ export const DetailsScreen: FC<DetailsScreenProps> = ({ navigation }) => {
         dispatch(clearBadgeCount());
     };
 
-    const onBackPress = () => {
-        navigation.navigate(BasketStackNavigationName.ORDER);
-    };
-
     const onClearPress = () => {
         dispatch(clearBasket());
         dispatch(clearBadgeCount());
         navigation.navigate(BasketStackNavigationName.ORDER);
     };
+
+    const modalType = useAppSelector(getModalType);
 
     return (
         <RootContainer>
@@ -89,12 +95,17 @@ export const DetailsScreen: FC<DetailsScreenProps> = ({ navigation }) => {
                 </RowContainer>
             </LeftView>
 
-            <Icon name="arrow-back" onPress={onBackPress} size={32} />
+            <Gap scale={2} />
+
             <RootContainerCentered>
-                <Form />
-                <Gap scale={2} />
-                <AppButton title="Оформить" onPress={onOrderPress} />
+                <Form onOrderPress={onOrderPress} />
             </RootContainerCentered>
+
+            {modalType === 'error' && (
+                <CustomModal>
+                    <Error />
+                </CustomModal>
+            )}
         </RootContainer>
     );
 };

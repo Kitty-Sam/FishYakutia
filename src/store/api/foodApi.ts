@@ -4,6 +4,7 @@ import { Platform } from 'react-native';
 import { BASE_URL_ANDROID, BASE_URL_IOS } from '~constants/baseURL';
 import { IFood, setAllCategories, setAllFoods, setFilteredFoods } from '~store/slices/foodSlice';
 import { IOrder, setOrderNumber } from '~store/slices/basketSlice';
+import { setModalType } from '~store/slices/modalSlice';
 
 export const foodsApi = createApi({
     reducerPath: 'foodApi',
@@ -48,8 +49,9 @@ export const foodsApi = createApi({
             async onQueryStarted(_args, { dispatch, queryFulfilled }) {
                 const { data: filteredFoods } = await queryFulfilled;
                 if (!filteredFoods.length) {
-                    console.log('match is absent');
-                    // dispatch(setModalType({ type: 'match' }));
+                    dispatch(setModalType({ type: 'match' }));
+                    dispatch(setFilteredFoods([]));
+                    return;
                 } else {
                     dispatch(setFilteredFoods(filteredFoods));
                 }
@@ -62,6 +64,8 @@ export const foodsApi = createApi({
                 userName: string;
                 userAddress: string;
                 userPhone: string;
+                paymentMethod: string;
+                comment: string;
                 totalAmount: string;
                 orderItems: { foodId: number; foodCount: number }[];
             }
@@ -76,8 +80,8 @@ export const foodsApi = createApi({
             async onQueryStarted(_args, { dispatch, queryFulfilled }) {
                 const { data: order } = await queryFulfilled;
                 if (!order) {
-                    console.log('match is absent');
-                    // dispatch(setModalType({ type: 'match' }));
+                    dispatch(setModalType({ type: 'error' }));
+                    return;
                 } else {
                     dispatch(setOrderNumber(order.id));
                 }
@@ -87,7 +91,6 @@ export const foodsApi = createApi({
 });
 
 export const {
-    useGetAllOrdersQuery,
     useGetAllFoodsQuery,
     useGetAllCategoriesQuery,
     useFilterFoodByCategoryIdMutation,

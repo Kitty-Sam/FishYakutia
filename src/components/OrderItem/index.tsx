@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
 import { ColumnContainer, FoodImage, OrderItemContainer, RowContainer } from '~components/OrderItem/style';
-import { SquareButton } from '~components/SquareButton';
 import { useAppDispatch } from '~store/store';
 import { addOrderItem, removeOrderItem } from '~store/slices/basketSlice';
 import { addBadgeCount, removeBadgeCount } from '~store/slices/foodSlice';
 import { RegularText } from '~components/RegularText';
 import { theme } from '~constants/theme';
-import { RoundButton } from '~components/RoundButton';
+import { RoundButton } from '~components/Buttons/RoundButton';
 
 interface IOrderItem {
     food: {
@@ -40,7 +39,7 @@ export const OrderItem: FC<IOrderItem> = ({ food }) => {
                     {foodName}
                 </RegularText>
                 <RegularText color={theme.BUTTON_COLOR} fontSize={12} fontFamily="Montserrat-Regular">
-                    {foodPrice} RUB
+                    {foodPrice} ₽
                 </RegularText>
             </ColumnContainer>
 

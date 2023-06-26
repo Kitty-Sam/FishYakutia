@@ -3,7 +3,7 @@ import { RegularText } from '~components/RegularText';
 
 import { Logo } from '~components/Logo';
 import { BasketStackNavigationName } from '~navigation/BasketStack/type';
-import { AppButton } from '~components/Button';
+import { AppButton } from '~components/Buttons/Button';
 import { RootStackNavigationName } from '~navigation/RootStack/type';
 import { useNavigation } from '@react-navigation/native';
 import { theme } from '~constants/theme';
@@ -108,7 +108,7 @@ export const OrderScreen = () => {
                     <RootContainerCentered>
                         <FlatList data={orderItems} renderItem={renderOrderItem} showsVerticalScrollIndicator={false} />
                         <Gap scale={2} />
-                        <AppButton title={`Продолжить ${totalPrice} RUB`} onPress={onDetailsPress} />
+                        <AppButton title={`Продолжить ${totalPrice} ₽`} onPress={onDetailsPress} />
                     </RootContainerCentered>
                 </RootContainer>
             )}
