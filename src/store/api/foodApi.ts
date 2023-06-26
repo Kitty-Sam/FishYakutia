@@ -62,6 +62,8 @@ export const foodsApi = createApi({
                 userName: string;
                 userAddress: string;
                 userPhone: string;
+                paymentMethod: string;
+                comment: string;
                 totalAmount: string;
                 orderItems: { foodId: number; foodCount: number }[];
             }
@@ -87,7 +89,6 @@ export const foodsApi = createApi({
 });
 
 export const {
-    useGetAllOrdersQuery,
     useGetAllFoodsQuery,
     useGetAllCategoriesQuery,
     useFilterFoodByCategoryIdMutation,

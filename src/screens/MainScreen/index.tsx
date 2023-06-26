@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Logo } from '~components/Logo';
 import { CenteredContainer, Image, RootContainer } from '~screens/MainScreen/style';
 import { Gap } from '~components/Gap';
-import { AppButton } from '~components/Button';
+import { AppButton } from '~components/Buttons/Button';
 import { RegularText } from '~components/RegularText';
 import { MainScreenProps, RootStackNavigationName } from '~navigation/RootStack/type';
 import { theme } from '~constants/theme';

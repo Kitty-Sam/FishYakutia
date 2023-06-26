@@ -18,7 +18,7 @@ import { theme } from '~constants/theme';
 import { RegularText } from '~components/RegularText';
 import { useFilterFoodByCategoryIdMutation, useGetAllCategoriesQuery, useGetAllFoodsQuery } from '~store/api/foodApi';
 import { addBadgeCount, IFood, setFilteredFoods } from '~store/slices/foodSlice';
-import { SquareButton } from '~components/SquareButton';
+import { SquareButton } from '~components/Buttons/SquareButton';
 import { getAllCategories, getAllFoods, getFilteredFoods } from '~store/selectors';
 import { useAppDispatch, useAppSelector } from '~store/store';
 import { addOrderItem } from '~store/slices/basketSlice';
@@ -74,7 +74,7 @@ export const MenuScreen = () => {
                 <Gap scale={1.5} />
                 <PriceContainer>
                     <RegularText color={theme.PRIMARY_COLOR} fontSize={20} fontFamily="Montserrat-Bold">
-                        {item.price} R
+                        {item.price} ₽
                     </RegularText>
                     <SquareButton
                         title="+"
