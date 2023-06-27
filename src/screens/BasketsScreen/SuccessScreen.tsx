@@ -3,14 +3,16 @@ import { RegularText } from '~components/RegularText';
 import { RootContainer } from '~screens/style';
 import { Logo } from '~components/Logo';
 import { theme } from '~constants/theme';
-import { AppButton } from '~components/Button';
+import { AppButton } from '~components/Buttons/Button';
 import { useNavigation } from '@react-navigation/native';
 import { BasketStackNavigationName } from '~navigation/BasketStack/type';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { getOrderNumber } from '~store/selectors';
 import { useAppSelector } from '~store/store';
 import { Platform } from 'react-native';
 import { Gap } from '~components/Gap';
+import { CenteredView, OkImage, stylesSuccess } from '~screens/BasketsScreen/style';
+
+const ok = require('~constants/ok.png');
 
 export const SuccessScreen = () => {
     const navigation = useNavigation<any>();
@@ -20,22 +22,35 @@ export const SuccessScreen = () => {
 
     const orderNumber = useAppSelector(getOrderNumber);
 
-    const onBackPress = () => {
-        navigation.navigate(BasketStackNavigationName.DETAILS);
-    };
     return (
         <RootContainer>
-            {Platform.OS === 'android' && <Gap scale={0.5} />}
-            <Logo />
+            <CenteredView>
+                {Platform.OS === 'android' && <Gap scale={0.5} />}
+                <Logo />
+            </CenteredView>
+            <Gap scale={1.5} />
 
-            <RegularText color={theme.PRIMARY_COLOR} fontFamily="Montserrat-Medium" fontSize={32}>
+            <RegularText
+                color={theme.PRIMARY_COLOR}
+                fontFamily="Montserrat-Medium"
+                fontSize={32}
+                style={stylesSuccess.titleText}
+            >
                 Заказ № {orderNumber} оформлен
             </RegularText>
-            <Icon name="arrow-back" onPress={onBackPress} size={32} />
-            <RegularText color={theme.SECONDARY_COLOR} fontFamily="Montserrat-Regular" fontSize={32}>
-                Ожидайте звонка оператора
+            <Gap scale={2} />
+            <OkImage source={ok} />
+            <Gap scale={2} />
+            <RegularText
+                color={theme.SECONDARY_COLOR}
+                fontFamily="Montserrat-Regular"
+                fontSize={32}
+                style={stylesSuccess.operatorText}
+            >
+                Ожидайте звонка от оператора.
             </RegularText>
-            <AppButton title="Спасибо" onPress={onClosePress} />
+            <Gap scale={3} />
+            <AppButton title="Спасибо!" onPress={onClosePress} />
         </RootContainer>
     );
 };

@@ -3,7 +3,7 @@ import { RegularText } from '~components/RegularText';
 
 import { Logo } from '~components/Logo';
 import { BasketStackNavigationName } from '~navigation/BasketStack/type';
-import { AppButton } from '~components/Button';
+import { AppButton } from '~components/Buttons/Button';
 import { RootStackNavigationName } from '~navigation/RootStack/type';
 import { useNavigation } from '@react-navigation/native';
 import { theme } from '~constants/theme';
@@ -107,6 +107,7 @@ export const OrderScreen = () => {
                         </RowContainer>
                     </ColumnContainer>
                     <RootContainerCentered>
+
                         <ScrollView contentContainerStyle={{ width: width, alignItems: 'center' }}>
                             {orderItems.map((order) => (
                                 <OrderItem food={order} key={order.foodName} />
@@ -115,6 +116,8 @@ export const OrderScreen = () => {
                             <Gap scale={2} />
                             <AppButton title={`Продолжить ${totalPrice} RUB`} onPress={onDetailsPress} />
                         </ScrollView>
+
+                   
                     </RootContainerCentered>
                 </RootContainer>
             )}

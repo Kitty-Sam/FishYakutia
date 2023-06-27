@@ -10,3 +10,6 @@ export const getCurrentBadgeCount = (state: RootState) => state.foodStore.badgeC
 //ordersItems
 export const getOrderItems = (state: RootState) => state.basketStore.orderItems;
 export const getOrderNumber = (state: RootState) => state.basketStore.orderNumber;
+
+//modals
+export const getModalType = (state: RootState) => state.modalStore.type;
