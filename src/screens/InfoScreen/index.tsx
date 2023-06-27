@@ -5,8 +5,15 @@ import { RegularText } from '~components/RegularText';
 import { theme } from '~constants/theme';
 import { CenteredView, RootContainer } from '~screens/InfoScreen/style';
 import { Platform } from 'react-native';
+import { useGetSettingsQuery } from '~store/api/settingsApi';
+import { replaceDotByEnter, replaceDotByEnterWithEmail } from '~utils/replaceDotByEnter';
 
 export const InfoScreen = () => {
+    const { data: settings } = useGetSettingsQuery();
+
+    const replacedDelivery = settings && replaceDotByEnter(settings.delivery);
+    const replacedDescription = settings && replaceDotByEnterWithEmail(settings.description);
+
     return (
         <RootContainer>
             <CenteredView>
@@ -23,37 +30,17 @@ export const InfoScreen = () => {
                 Доставка и оплата
             </RegularText>
             <Gap scale={1.5} />
-
             <RegularText color={theme.SECONDARY_COLOR} fontFamily="Montserrat-Regular" fontSize={12}>
-                Доставка = 100 рублей
+                {replacedDelivery}
             </RegularText>
-            <RegularText color={theme.SECONDARY_COLOR} fontFamily="Montserrat-Regular" fontSize={12}>
-                Бесплатная доставка от 1500 рублей
-            </RegularText>
-
             <Gap scale={2} />
-            <RegularText color={theme.SECONDARY_COLOR} fontFamily="Montserrat-Regular" fontSize={12}>
-                Оплата наличными и по карте. Можно переводом.
-            </RegularText>
-            <Gap scale={1.5} />
             <RegularText color={theme.SECONDARY_COLOR} fontFamily="Montserrat-Regular" fontSize={32}>
                 О нас
             </RegularText>
             <Gap scale={1.5} />
             <RegularText color={theme.INFO_TEXT_COLOR} fontFamily="Montserrat-Regular" fontSize={12}>
-                Магазин вкуснейшей рыбы в городе! Быстро доставим к Вам домой
+                {replacedDescription}
             </RegularText>
-            <Gap scale={1.5} />
-            <RegularText color={theme.INFO_TEXT_COLOR} fontFamily="Montserrat-Regular" fontSize={12}>
-                Санкт-Петербург, Ладожская улица, дом 1
-            </RegularText>
-            <RegularText color={theme.INFO_TEXT_COLOR} fontFamily="Montserrat-Regular" fontSize={12}>
-                +7 812 777 77 77
-            </RegularText>
-            <RegularText color={theme.INFO_TEXT_COLOR} fontFamily="Montserrat-Regular" fontSize={12}>
-                info@fishka.ru
-            </RegularText>
-
             <Gap scale={5} />
             <CenteredView>
                 <LargeLogo />
