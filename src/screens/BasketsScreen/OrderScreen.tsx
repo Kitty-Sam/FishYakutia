@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { RegularText } from '~components/RegularText';
 
 import { Logo } from '~components/Logo';
@@ -14,17 +14,20 @@ import {
     RootContainer,
     RootContainerCentered,
     RowContainer,
+    SmileImage,
+    stylesSuccess,
 } from '~screens/BasketsScreen/style';
 import { Gap } from '~components/Gap';
 import { getOrderItems } from '~store/selectors';
 import { useAppDispatch, useAppSelector } from '~store/store';
-import Icon from 'react-native-vector-icons/Entypo';
 import { Platform, ScrollView } from 'react-native';
 import { OrderItem } from '~components/OrderItem';
 import { clearBasket } from '~store/slices/basketSlice';
 import { clearBadgeCount } from '~store/slices/foodSlice';
 import { OrderSteps } from '~components/OrderSteps';
 import { width } from '~constants/dimensions';
+
+const smile = require('../../../assets/images/smile.png');
 
 export const OrderScreen = () => {
     const navigation = useNavigation<any>();
@@ -46,14 +49,14 @@ export const OrderScreen = () => {
         dispatch(clearBadgeCount());
     };
 
-    const renderOrderItem = useCallback(
-        ({
-            item,
-        }: {
-            item: { foodId: number; foodCount: number; foodImage: string; foodPrice: string; foodName: string };
-        }) => <OrderItem food={item} />,
-        [],
-    );
+    // const renderOrderItem = useCallback(
+    //     ({
+    //         item,
+    //     }: {
+    //         item: { foodId: number; foodCount: number; foodImage: string; foodPrice: string; foodName: string };
+    //     }) => <OrderItem food={item} />,
+    //     [],
+    // );
 
     const totalPrice = orderItems.reduce((acc, obj) => acc + Number(obj.foodPrice) * obj.foodCount, 0);
 
@@ -72,9 +75,14 @@ export const OrderScreen = () => {
 
             {!orderItems.length ? (
                 <RootContainerCentered>
-                    <Icon name="emoji-sad" size={250} />
+                    <SmileImage source={smile} />
                     <Gap scale={2} />
-                    <RegularText color={theme.SECONDARY_COLOR} fontFamily="Montserrat-Regular" fontSize={24}>
+                    <RegularText
+                        color={theme.SECONDARY_COLOR}
+                        fontFamily="Montserrat-Regular"
+                        fontSize={24}
+                        style={stylesSuccess.emptyBasketText}
+                    >
                         Ваша корзина пока пуста
                     </RegularText>
                     <Gap scale={4} />
@@ -107,17 +115,14 @@ export const OrderScreen = () => {
                         </RowContainer>
                     </ColumnContainer>
                     <RootContainerCentered>
-
                         <ScrollView contentContainerStyle={{ width: width, alignItems: 'center' }}>
                             {orderItems.map((order) => (
                                 <OrderItem food={order} key={order.foodName} />
                             ))}
                             {/*<FlatList data={orderItems} renderItem={renderOrderItem} showsVerticalScrollIndicator={false} />*/}
                             <Gap scale={2} />
-                            <AppButton title={`Продолжить ${totalPrice} RUB`} onPress={onDetailsPress} />
+                            <AppButton title={`Продолжить ${totalPrice} ₽`} onPress={onDetailsPress} />
                         </ScrollView>
-
-                   
                     </RootContainerCentered>
                 </RootContainer>
             )}

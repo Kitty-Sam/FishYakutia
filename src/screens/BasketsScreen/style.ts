@@ -34,12 +34,21 @@ export const OkImage = styled.Image`
     width: 100px;
     height: 100px;
 `;
+
+export const SmileImage = styled.Image`
+    width: 180px;
+    height: 180px;
+`;
 export const stylesSuccess = StyleSheet.create({
     titleText: {
         textAlign: 'center',
         width: 200,
     },
     operatorText: {
+        textAlign: 'center',
+    },
+    emptyBasketText: {
+        width: 300,
         textAlign: 'center',
     },
 });

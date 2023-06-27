@@ -58,6 +58,43 @@ export const foodsApi = createApi({
             },
         }),
 
+        filterFood: builder.mutation<IFood[], { title: string }>({
+            query(data) {
+                return {
+                    url: 'foods/filter-by-title',
+                    method: 'POST',
+                    body: data,
+                };
+            },
+            async onQueryStarted(_args, { dispatch, queryFulfilled }) {
+                const { data: filteredFoods } = await queryFulfilled;
+                if (!filteredFoods.length) {
+                    dispatch(setModalType({ type: 'match' }));
+                    dispatch(setFilteredFoods([]));
+                } else {
+                    dispatch(setFilteredFoods(filteredFoods));
+                }
+            },
+        }),
+
+        commonFilterFood: builder.mutation<IFood[] | [], { title: string; categoryId: number }>({
+            query(data) {
+                return {
+                    url: 'foods/filter-by-title-and-by-category',
+                    method: 'POST',
+                    body: data,
+                };
+            },
+            async onQueryStarted(_args, { dispatch, queryFulfilled }) {
+                const { data: filteredFoods } = await queryFulfilled;
+                if (!filteredFoods.length) {
+                    dispatch(setModalType({ type: 'match' }));
+                } else {
+                    dispatch(setFilteredFoods(filteredFoods));
+                }
+            },
+        }),
+
         createOrder: builder.mutation<
             any,
             {
@@ -90,9 +127,5 @@ export const foodsApi = createApi({
     }),
 });
 
-export const {
-    useGetAllFoodsQuery,
-    useGetAllCategoriesQuery,
-    useFilterFoodByCategoryIdMutation,
-    useCreateOrderMutation,
-} = foodsApi;
+export const { useGetAllFoodsQuery, useGetAllCategoriesQuery, useCreateOrderMutation, useCommonFilterFoodMutation } =
+    foodsApi;
