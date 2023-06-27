@@ -22,9 +22,10 @@ export const InfoScreen = () => {
             <RegularText color={theme.SECONDARY_COLOR} fontFamily="Montserrat-Regular" fontSize={32}>
                 Доставка и оплата
             </RegularText>
+            <Gap scale={1.5} />
 
             <RegularText color={theme.SECONDARY_COLOR} fontFamily="Montserrat-Regular" fontSize={12}>
-                Copy Доставка = 100 рублей
+                Доставка = 100 рублей
             </RegularText>
             <RegularText color={theme.SECONDARY_COLOR} fontFamily="Montserrat-Regular" fontSize={12}>
                 Бесплатная доставка от 1500 рублей
