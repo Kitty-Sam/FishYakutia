@@ -107,7 +107,6 @@ export const OrderScreen = () => {
                         </RowContainer>
                     </ColumnContainer>
                     <RootContainerCentered>
-
                         <ScrollView contentContainerStyle={{ width: width, alignItems: 'center' }}>
                             {orderItems.map((order) => (
                                 <OrderItem food={order} key={order.foodName} />
@@ -116,8 +115,6 @@ export const OrderScreen = () => {
                             <Gap scale={2} />
                             <AppButton title={`Продолжить ${totalPrice} RUB`} onPress={onDetailsPress} />
                         </ScrollView>
-
-                   
                     </RootContainerCentered>
                 </RootContainer>
             )}

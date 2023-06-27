@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Logo } from '~components/Logo';
 import {
     CategoriesContainer,
@@ -10,37 +10,44 @@ import {
     LeftMarginBlock,
     PriceContainer,
     RootContainer,
-    SearchBar,
 } from '~screens/MenuScreen/style';
 import { Gap } from '~components/Gap';
 import { FlatList, Platform } from 'react-native';
 import { theme } from '~constants/theme';
 import { RegularText } from '~components/RegularText';
-import { useFilterFoodByCategoryIdMutation, useGetAllCategoriesQuery, useGetAllFoodsQuery } from '~store/api/foodApi';
+import { useCommonFilterFoodMutation, useGetAllCategoriesQuery, useGetAllFoodsQuery } from '~store/api/foodApi';
 import { addBadgeCount, IFood, setFilteredFoods } from '~store/slices/foodSlice';
 import { SquareButton } from '~components/Buttons/SquareButton';
-import { getAllCategories, getAllFoods, getFilteredFoods, getModalType } from '~store/selectors';
+import { getAllCategories, getFilteredFoods, getModalType } from '~store/selectors';
 import { useAppDispatch, useAppSelector } from '~store/store';
 import { addOrderItem } from '~store/slices/basketSlice';
 import { CustomModal } from '~components/CustomModal';
 
 import { Match } from '~components/Modals/Match';
+import { useSearch } from '~hooks/useSearch';
+import { SearchBar } from '~components/SearchBar';
 
 export const MenuScreen = () => {
-    const [search, setSearch] = useState('');
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState<{ id: number; title: string } | null>(null);
 
-    const [filterFoodByCategoryId] = useFilterFoodByCategoryIdMutation();
-
-    useGetAllFoodsQuery();
+    const { data: allFoods } = useGetAllFoodsQuery();
     useGetAllCategoriesQuery();
 
-    const allFoods = useAppSelector(getAllFoods);
-    const categories = useAppSelector(getAllCategories);
     const filteredFoods = useAppSelector(getFilteredFoods);
     const modalType = useAppSelector(getModalType);
+    const categories = useAppSelector(getAllCategories);
+
+    const { search, setSearch, filterBySearch } = useSearch(category?.id);
+
+    const [commonFilterFood] = useCommonFilterFoodMutation();
 
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (!search) {
+            dispatch(setFilteredFoods([]));
+        }
+    }, [search]);
 
     const onAddFoodPositionPress = (foodId: number, foodImage: string, foodPrice: string, foodName: string) => () => {
         dispatch(addBadgeCount());
@@ -51,7 +58,8 @@ export const MenuScreen = () => {
         ({ item }: { item: { id: number; title: string } }) => (
             <CategoryContainer
                 style={{
-                    backgroundColor: category === item.title ? theme.CHOSEN_CATEGORY_COLOR : theme.CATEGORY_COLOR,
+                    backgroundColor:
+                        category?.title === item.title ? theme.CHOSEN_CATEGORY_COLOR : theme.CATEGORY_COLOR,
                 }}
                 onPress={onCategoryPress(item)}
             >
@@ -91,11 +99,11 @@ export const MenuScreen = () => {
     );
 
     const onCategoryPress = (item: { id: number; title: string }) => async () => {
-        setCategory(item.title);
+        setCategory(item);
         if (item.title === 'Все') {
             dispatch(setFilteredFoods([]));
         } else {
-            await filterFoodByCategoryId({ categoryId: item.id }).unwrap();
+            await commonFilterFood({ categoryId: item.id, title: '' }).unwrap();
         }
     };
 
@@ -112,7 +120,8 @@ export const MenuScreen = () => {
                 </RegularText>
 
                 <Gap scale={1.5} />
-                <SearchBar value={search} onChangeText={setSearch} placeholder="Быстрый поиск" />
+
+                <SearchBar search={search} setSearch={setSearch} filterHandler={filterBySearch} />
 
                 <CategoriesContainer>
                     <FlatList

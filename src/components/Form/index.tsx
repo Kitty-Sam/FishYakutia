@@ -8,7 +8,6 @@ import { paymentMethods } from '~constants/paymentMethods';
 import { Select } from '~components/Select';
 import { setModalType } from '~store/slices/modalSlice';
 import { useAppDispatch } from '~store/store';
-// import { formSchema } from '~constants/formSchema';
 
 export interface IForm {
     onOrderPress: (name: string, phone: string, address: string, comment: string, paymentMethod: string) => void;
@@ -22,9 +21,8 @@ export const Form: FC<IForm> = ({ onOrderPress }) => {
     return (
         <Formik
             initialValues={{ name: '', phone: '', address: '', comment: '' }}
-            // validationSchema={formSchema}
             onSubmit={(values) => {
-                if (!values.name || values.phone || !values.address) {
+                if (!values.name || !values.phone || !values.address) {
                     dispatch(setModalType({ type: 'error' }));
                     return;
                 }
