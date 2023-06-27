@@ -6,17 +6,20 @@ import foodReducer from './slices/foodSlice';
 import basketReducer from './slices/basketSlice';
 import modalReducer from './slices/modalSlice';
 import { foodsApi } from '~store/api/foodApi';
+import { settingsApi } from '~store/api/settingsApi';
 
 const rootReducer = combineReducers({
     foodStore: foodReducer,
     basketStore: basketReducer,
     modalStore: modalReducer,
     [foodsApi.reducerPath]: foodsApi.reducer,
+    [settingsApi.reducerPath]: settingsApi.reducer,
 });
 
 export const store = configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({}).concat([foodsApi.middleware]),
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({}).concat([foodsApi.middleware, settingsApi.middleware]),
 });
 
 setupListeners(store.dispatch);
