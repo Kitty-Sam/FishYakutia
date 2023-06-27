@@ -33,7 +33,7 @@ export const CenteredView = styled.View`
 
 export const FoodContainer = styled.View`
     flex: 1;
-    padding: 20px;
+    padding: 10px 20px;
 `;
 
 export const LeftMarginBlock = styled.View`

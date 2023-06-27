@@ -19,11 +19,12 @@ import { Gap } from '~components/Gap';
 import { getOrderItems } from '~store/selectors';
 import { useAppDispatch, useAppSelector } from '~store/store';
 import Icon from 'react-native-vector-icons/Entypo';
-import { FlatList, Platform } from 'react-native';
+import { Platform, ScrollView } from 'react-native';
 import { OrderItem } from '~components/OrderItem';
 import { clearBasket } from '~store/slices/basketSlice';
 import { clearBadgeCount } from '~store/slices/foodSlice';
 import { OrderSteps } from '~components/OrderSteps';
+import { width } from '~constants/dimensions';
 
 export const OrderScreen = () => {
     const navigation = useNavigation<any>();
@@ -106,9 +107,17 @@ export const OrderScreen = () => {
                         </RowContainer>
                     </ColumnContainer>
                     <RootContainerCentered>
-                        <FlatList data={orderItems} renderItem={renderOrderItem} showsVerticalScrollIndicator={false} />
-                        <Gap scale={2} />
-                        <AppButton title={`Продолжить ${totalPrice} ₽`} onPress={onDetailsPress} />
+
+                        <ScrollView contentContainerStyle={{ width: width, alignItems: 'center' }}>
+                            {orderItems.map((order) => (
+                                <OrderItem food={order} key={order.foodName} />
+                            ))}
+                            {/*<FlatList data={orderItems} renderItem={renderOrderItem} showsVerticalScrollIndicator={false} />*/}
+                            <Gap scale={2} />
+                            <AppButton title={`Продолжить ${totalPrice} RUB`} onPress={onDetailsPress} />
+                        </ScrollView>
+
+                   
                     </RootContainerCentered>
                 </RootContainer>
             )}
