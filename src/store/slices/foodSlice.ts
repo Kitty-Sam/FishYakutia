@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface IFood {
     id: number;
     name: string;
-    image: string;
+    images: [{ createdAt: Date; filename: string; foodId: number; id: string; path: any; updatedAt: string }];
     price: string;
     categoryId: number;
 }
