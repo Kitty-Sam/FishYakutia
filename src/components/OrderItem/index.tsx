@@ -6,6 +6,7 @@ import { addBadgeCount, removeBadgeCount } from '~store/slices/foodSlice';
 import { RegularText } from '~components/RegularText';
 import { theme } from '~constants/theme';
 import { RoundButton } from '~components/Buttons/RoundButton';
+import { serverUrl } from '~constants/baseURL';
 
 interface IOrderItem {
     food: {
@@ -16,10 +17,13 @@ interface IOrderItem {
         foodName: string;
     };
 }
+
 export const OrderItem: FC<IOrderItem> = ({ food }) => {
     const { foodId, foodCount, foodImage, foodPrice, foodName } = food;
 
     const dispatch = useAppDispatch();
+
+    const imageUrl = `${serverUrl}/${foodImage}`;
 
     const onAddFoodCountPress = (foodId: number, foodCount: number) => () => {
         dispatch(addOrderItem({ orderItem: { foodId, foodCount, foodImage, foodPrice, foodName } }));
@@ -33,7 +37,7 @@ export const OrderItem: FC<IOrderItem> = ({ food }) => {
 
     return (
         <OrderItemContainer>
-            <FoodImage source={{ uri: foodImage }} />
+            <FoodImage source={{ uri: imageUrl }} />
             <ColumnContainer>
                 <RegularText color={theme.SECONDARY_COLOR} fontSize={13} fontFamily="Montserrat-Regular">
                     {foodName}

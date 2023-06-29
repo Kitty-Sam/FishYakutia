@@ -15,7 +15,7 @@ export const foodsApi = createApi({
     tagTypes: ['Foods'],
     endpoints: (builder) => ({
         getAllFoods: builder.query<IFood[], void>({
-            query: () => 'foods',
+            query: () => 'foods-mobile',
             providesTags: ['Foods'],
 
             async onQueryStarted(_args, { dispatch, queryFulfilled }) {

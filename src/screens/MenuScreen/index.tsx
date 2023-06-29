@@ -26,9 +26,10 @@ import { CustomModal } from '~components/CustomModal';
 import { Match } from '~components/Modals/Match';
 import { useSearch } from '~hooks/useSearch';
 import { SearchBar } from '~components/SearchBar';
+import { serverUrl } from '~constants/baseURL';
 
 export const MenuScreen = () => {
-    const [category, setCategory] = useState<{ id: number; title: string } | null>(null);
+    const [category, setCategory] = useState<{ id: number; title: string }>({ id: 0, title: 'Все' });
 
     const { data: allFoods } = useGetAllFoodsQuery();
     useGetAllCategoriesQuery();
@@ -71,10 +72,11 @@ export const MenuScreen = () => {
         [category],
     );
 
-    const renderFoodItem = useCallback(
-        ({ item }: { item: IFood }) => (
+    const renderFoodItem = useCallback(({ item }: { item: IFood }) => {
+        const imageUrl = `${serverUrl}/${item.images[0].path}`;
+        return (
             <FoodItemContainer>
-                <FoodImage source={{ uri: item.image }} />
+                <FoodImage source={{ uri: imageUrl }} />
                 <Gap scale={1} />
                 <RegularText color={theme.PRIMARY_COLOR} fontSize={16} fontFamily="Montserrat-SemiBold">
                     {item.name}
@@ -90,13 +92,12 @@ export const MenuScreen = () => {
                     </RegularText>
                     <SquareButton
                         title="+"
-                        onPress={onAddFoodPositionPress(item.id, item.image, item.price, item.name)}
+                        onPress={onAddFoodPositionPress(item.id, item.images[0].path, item.price, item.name)}
                     />
                 </PriceContainer>
             </FoodItemContainer>
-        ),
-        [],
-    );
+        );
+    }, []);
 
     const onCategoryPress = (item: { id: number; title: string }) => async () => {
         setCategory(item);
