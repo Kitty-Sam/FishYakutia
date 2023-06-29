@@ -1,10 +1,6 @@
 import React, { FC } from 'react';
 import { ButtonContainer, ButtonText } from '~components/Buttons/RoundButton/style';
-
-export interface IButton {
-    title: string;
-    onPress: any;
-}
+import { IButton } from '~components/Buttons/type';
 
 export const RoundButton: FC<IButton> = ({ title, onPress }) => {
     return (

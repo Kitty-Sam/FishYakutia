@@ -7,11 +7,7 @@ import { styles } from '~components/Select/style';
 import { Container } from '~components/InputWithLabel/style';
 import { RegularText } from '~components/RegularText';
 import { Gap } from '~components/Gap';
-
-export interface ISelect {
-    setPaymentMethod: (value: string) => void;
-    label: string;
-}
+import { ISelect } from '~components/Select/type';
 
 export const Select: FC<ISelect> = ({ setPaymentMethod, label }) => {
     return (

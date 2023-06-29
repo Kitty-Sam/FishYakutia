@@ -9,11 +9,8 @@ import { setModalType } from '~store/slices/modalSlice';
 import { useAppDispatch } from '~store/store';
 import { Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native';
-import { View } from 'react-native';
-
-export interface IForm {
-    onOrderPress: (name: string, phone: string, address: string, comment: string, paymentMethod: string) => void;
-}
+import { CenteredContainer } from '~components/Form/style';
+import { IForm } from '~components/Form/type';
 
 export const Form: FC<IForm> = ({ onOrderPress }) => {
     const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0]);
@@ -34,7 +31,7 @@ export const Form: FC<IForm> = ({ onOrderPress }) => {
             {({ handleChange, handleBlur, handleSubmit, values }) => (
                 <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                        <View style={{ flex: 1, alignItems: 'center' }}>
+                        <CenteredContainer>
                             <InputWithLabel
                                 label="Имя"
                                 placeholder="Name"
@@ -67,7 +64,7 @@ export const Form: FC<IForm> = ({ onOrderPress }) => {
                             />
                             <Gap scale={2} />
                             <AppButton title="Оформить" onPress={handleSubmit} />
-                        </View>
+                        </CenteredContainer>
                     </TouchableWithoutFeedback>
                 </KeyboardAvoidingView>
             )}

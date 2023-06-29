@@ -1,14 +1,6 @@
 import React, { FC } from 'react';
 import { Text } from '~components/RegularText/style';
-
-interface IRegularText {
-    color: string;
-    fontSize: number;
-    fontFamily: string;
-    children: any;
-    style?: any;
-    onPress?: any;
-}
+import { IRegularText } from '~components/RegularText/type';
 
 export const RegularText: FC<IRegularText> = ({ children, color, fontSize, fontFamily, style, onPress }) => {
     return (

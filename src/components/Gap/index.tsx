@@ -1,9 +1,6 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
-
-export interface IGap {
-    scale: number;
-}
+import { IGap } from '~components/Gap/type';
 
 export const Gap: FC<IGap> = ({ scale }) => {
     return <View style={{ height: scale * 10 }} />;
