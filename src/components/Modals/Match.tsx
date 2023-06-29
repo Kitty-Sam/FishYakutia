@@ -15,7 +15,7 @@ export const Match = () => {
             <RegularText color={theme.PRIMARY_COLOR} fontSize={13} fontFamily="Montserrat-Regular">
                 Совпадения отсутствуют
             </RegularText>
-            <Icon name="close" onPress={onClosePress} size={24} />
+            <Icon name="close" onPress={onClosePress} size={24} color={theme.PRIMARY_COLOR} />
         </Container>
     );
 };

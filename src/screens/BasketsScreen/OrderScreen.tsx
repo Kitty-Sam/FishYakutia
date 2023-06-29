@@ -20,12 +20,12 @@ import {
 import { Gap } from '~components/Gap';
 import { getOrderItems } from '~store/selectors';
 import { useAppDispatch, useAppSelector } from '~store/store';
-import { Platform, ScrollView } from 'react-native';
+import { Platform, ScrollView, View } from 'react-native';
 import { OrderItem } from '~components/OrderItem';
 import { clearBasket } from '~store/slices/basketSlice';
 import { clearBadgeCount } from '~store/slices/foodSlice';
 import { OrderSteps } from '~components/OrderSteps';
-import { width } from '~constants/dimensions';
+import { height, width } from '~constants/dimensions';
 
 const smile = require('../../../assets/images/smile.png');
 
@@ -114,16 +114,19 @@ export const OrderScreen = () => {
                             </RegularText>
                         </RowContainer>
                     </ColumnContainer>
-                    <RootContainerCentered>
-                        <ScrollView contentContainerStyle={{ width: width, alignItems: 'center' }}>
+                    <View style={{ height: height * 0.55 }}>
+                        <ScrollView
+                            contentContainerStyle={{ width: width, alignItems: 'center' }}
+                            showsVerticalScrollIndicator={false}
+                        >
                             {orderItems.map((order) => (
                                 <OrderItem food={order} key={order.foodName} />
                             ))}
-                            {/*<FlatList data={orderItems} renderItem={renderOrderItem} showsVerticalScrollIndicator={false} />*/}
-                            <Gap scale={2} />
+                            <Gap scale={1.5} />
                             <AppButton title={`Продолжить ${totalPrice} ₽`} onPress={onDetailsPress} />
+                            <Gap scale={2} />
                         </ScrollView>
-                    </RootContainerCentered>
+                    </View>
                 </RootContainer>
             )}
         </RootContainer>

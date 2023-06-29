@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { theme } from '~constants/theme';
+import { height } from '~constants/dimensions';
 
 export const CategoryContainer = styled.TouchableOpacity`
     border-radius: 9px;
@@ -22,9 +23,10 @@ export const CenteredView = styled.View`
     margin-left: -20px;
 `;
 
+//flex: 1;
 export const FoodContainer = styled.View`
-    flex: 1;
     padding: 10px 20px;
+    height: ${height * 0.55}px;
 `;
 
 export const LeftMarginBlock = styled.View`

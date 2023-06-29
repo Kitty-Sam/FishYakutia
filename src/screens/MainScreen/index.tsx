@@ -7,7 +7,7 @@ import { AppButton } from '~components/Buttons/Button';
 import { RegularText } from '~components/RegularText';
 import { MainScreenProps, RootStackNavigationName } from '~navigation/RootStack/type';
 import { theme } from '~constants/theme';
-import { Platform } from 'react-native';
+import { Platform, ScrollView } from 'react-native';
 
 const group = require('../../../assets/images/group.png');
 
@@ -34,27 +34,42 @@ export const MainScreen: FC<MainScreenProps> = ({ navigation }) => {
             <Gap scale={1.5} />
             <Image source={group} />
             <AppButton title="В меню" onPress={onMenuPress} />
-            <Gap scale={3} />
-            <RegularText
-                color={theme.PRIMARY_COLOR}
-                fontFamily="Montserrat-Regular"
-                fontSize={16}
-                style={{ width: 350 }}
-            >
-                Магазин вкуснейшей рыбы в городе! Быстро доставим к Вам домой
-            </RegularText>
-            <Gap scale={1} />
-            <RegularText color={theme.PRIMARY_COLOR} fontFamily="Montserrat-Regular" fontSize={16}>
-                Санкт-Петербург, Ладожская улица, дом 1 +7 812 777 77 77
-            </RegularText>
-            <RegularText
-                color={theme.PRIMARY_COLOR}
-                fontFamily="Montserrat-Regular"
-                fontSize={16}
-                style={{ width: 350 }}
-            >
-                info@fishka.ru
-            </RegularText>
+            <Gap scale={2} />
+            <ScrollView contentContainerStyle={{ flex: 1 }}>
+                <RegularText
+                    color={theme.PRIMARY_COLOR}
+                    fontFamily="Montserrat-Regular"
+                    fontSize={16}
+                    style={{ width: 350 }}
+                >
+                    Магазин вкуснейшей рыбы в городе! Быстро доставим к Вам домой
+                </RegularText>
+                <Gap scale={1} />
+                <RegularText
+                    color={theme.PRIMARY_COLOR}
+                    fontFamily="Montserrat-Regular"
+                    fontSize={16}
+                    style={{ width: 350 }}
+                >
+                    Санкт-Петербург, Ладожская улица, дом 1
+                </RegularText>
+                <RegularText
+                    color={theme.PRIMARY_COLOR}
+                    fontFamily="Montserrat-Regular"
+                    fontSize={16}
+                    style={{ width: 350 }}
+                >
+                    +7 812 777 77 77
+                </RegularText>
+                <RegularText
+                    color={theme.PRIMARY_COLOR}
+                    fontFamily="Montserrat-Regular"
+                    fontSize={16}
+                    style={{ width: 350 }}
+                >
+                    info@fishka.ru
+                </RegularText>
+            </ScrollView>
         </RootContainer>
     );
 };

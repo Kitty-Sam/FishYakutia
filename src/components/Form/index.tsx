@@ -2,12 +2,14 @@ import React, { FC, useState } from 'react';
 import { InputWithLabel } from '~components/InputWithLabel';
 import { Gap } from '~components/Gap';
 import { AppButton } from '~components/Buttons/Button';
-import { ScrollView } from 'react-native';
 import { Formik } from 'formik';
 import { paymentMethods } from '~constants/paymentMethods';
 import { Select } from '~components/Select';
 import { setModalType } from '~store/slices/modalSlice';
 import { useAppDispatch } from '~store/store';
+import { Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native';
+import { View } from 'react-native';
 
 export interface IForm {
     onOrderPress: (name: string, phone: string, address: string, comment: string, paymentMethod: string) => void;
@@ -30,40 +32,44 @@ export const Form: FC<IForm> = ({ onOrderPress }) => {
             }}
         >
             {({ handleChange, handleBlur, handleSubmit, values }) => (
-                <ScrollView contentContainerStyle={{ alignItems: 'center' }} showsVerticalScrollIndicator={false}>
-                    <InputWithLabel
-                        label="Имя"
-                        placeholder="Name"
-                        onChangeText={handleChange('name')}
-                        onBlur={handleBlur('name')}
-                        value={values.name}
-                    />
-                    <InputWithLabel
-                        label="Телефон"
-                        placeholder="Phone"
-                        onChangeText={handleChange('phone')}
-                        onBlur={handleBlur('phone')}
-                        value={values.phone}
-                        hasPhone
-                    />
-                    <InputWithLabel
-                        label="Адрес доставки"
-                        placeholder="Address"
-                        onChangeText={handleChange('address')}
-                        onBlur={handleBlur('address')}
-                        value={values.address}
-                    />
-                    <Select setPaymentMethod={setPaymentMethod} label={'Оплата'} />
-                    <InputWithLabel
-                        label="Примечание"
-                        placeholder="Comment"
-                        onChangeText={handleChange('comment')}
-                        onBlur={handleBlur('comment')}
-                        value={values.comment}
-                    />
-                    <Gap scale={2} />
-                    <AppButton title="Оформить" onPress={handleSubmit} />
-                </ScrollView>
+                <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <View style={{ flex: 1, alignItems: 'center' }}>
+                            <InputWithLabel
+                                label="Имя"
+                                placeholder="Name"
+                                onChangeText={handleChange('name')}
+                                onBlur={handleBlur('name')}
+                                value={values.name}
+                            />
+                            <InputWithLabel
+                                label="Телефон"
+                                placeholder="Phone"
+                                onChangeText={handleChange('phone')}
+                                onBlur={handleBlur('phone')}
+                                value={values.phone}
+                                hasPhone
+                            />
+                            <InputWithLabel
+                                label="Адрес доставки"
+                                placeholder="Address"
+                                onChangeText={handleChange('address')}
+                                onBlur={handleBlur('address')}
+                                value={values.address}
+                            />
+                            <Select setPaymentMethod={setPaymentMethod} label={'Оплата'} />
+                            <InputWithLabel
+                                label="Примечание"
+                                placeholder="Comment"
+                                onChangeText={handleChange('comment')}
+                                onBlur={handleBlur('comment')}
+                                value={values.comment}
+                            />
+                            <Gap scale={2} />
+                            <AppButton title="Оформить" onPress={handleSubmit} />
+                        </View>
+                    </TouchableWithoutFeedback>
+                </KeyboardAvoidingView>
             )}
         </Formik>
     );

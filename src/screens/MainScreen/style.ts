@@ -1,8 +1,10 @@
 import styled from 'styled-components/native';
 
+//height: 287px;
+
 export const Image = styled.Image`
     width: 100%;
-    height: 287px;
+    height: 250px;
     object-fit: contain;
 `;
 
