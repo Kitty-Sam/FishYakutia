@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { Logo } from '~components/Logo';
-import { CenteredContainer, Image, RootContainer } from '~screens/MainScreen/style';
+import { CenteredContainer, Image, RootContainer, styles } from '~screens/MainScreen/style';
 import { Gap } from '~components/Gap';
 import { AppButton } from '~components/Buttons/Button';
 import { RegularText } from '~components/RegularText';
@@ -27,7 +27,7 @@ export const MainScreen: FC<MainScreenProps> = ({ navigation }) => {
                 color={theme.PRIMARY_COLOR}
                 fontFamily="Montserrat-SemiBold"
                 fontSize={32}
-                style={{ width: 275 }}
+                style={styles.titleStyle}
             >
                 Добро пожаловать
             </RegularText>
@@ -40,7 +40,7 @@ export const MainScreen: FC<MainScreenProps> = ({ navigation }) => {
                     color={theme.PRIMARY_COLOR}
                     fontFamily="Montserrat-Regular"
                     fontSize={16}
-                    style={{ width: 350 }}
+                    style={styles.textStyle}
                 >
                     Магазин вкуснейшей рыбы в городе! Быстро доставим к Вам домой
                 </RegularText>
@@ -49,7 +49,7 @@ export const MainScreen: FC<MainScreenProps> = ({ navigation }) => {
                     color={theme.PRIMARY_COLOR}
                     fontFamily="Montserrat-Regular"
                     fontSize={16}
-                    style={{ width: 350 }}
+                    style={styles.textStyle}
                 >
                     Санкт-Петербург, Ладожская улица, дом 1
                 </RegularText>
@@ -57,7 +57,7 @@ export const MainScreen: FC<MainScreenProps> = ({ navigation }) => {
                     color={theme.PRIMARY_COLOR}
                     fontFamily="Montserrat-Regular"
                     fontSize={16}
-                    style={{ width: 350 }}
+                    style={styles.textStyle}
                 >
                     +7 812 777 77 77
                 </RegularText>
@@ -65,7 +65,7 @@ export const MainScreen: FC<MainScreenProps> = ({ navigation }) => {
                     color={theme.PRIMARY_COLOR}
                     fontFamily="Montserrat-Regular"
                     fontSize={16}
-                    style={{ width: 350 }}
+                    style={styles.textStyle}
                 >
                     info@fishka.ru
                 </RegularText>
