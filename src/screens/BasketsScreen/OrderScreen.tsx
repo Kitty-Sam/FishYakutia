@@ -11,6 +11,7 @@ import {
     CenteredView,
     ColumnContainer,
     LeftView,
+    ListContainer,
     RootContainer,
     RootContainerCentered,
     RowContainer,
@@ -20,12 +21,11 @@ import {
 import { Gap } from '~components/Gap';
 import { getOrderItems } from '~store/selectors';
 import { useAppDispatch, useAppSelector } from '~store/store';
-import { Platform, ScrollView, View } from 'react-native';
+import { Platform, ScrollView } from 'react-native';
 import { OrderItem } from '~components/OrderItem';
 import { clearBasket } from '~store/slices/basketSlice';
 import { clearBadgeCount } from '~store/slices/foodSlice';
 import { OrderSteps } from '~components/OrderSteps';
-import { height, width } from '~constants/dimensions';
 
 const smile = require('../../../assets/images/smile.png');
 
@@ -48,15 +48,6 @@ export const OrderScreen = () => {
         dispatch(clearBasket());
         dispatch(clearBadgeCount());
     };
-
-    // const renderOrderItem = useCallback(
-    //     ({
-    //         item,
-    //     }: {
-    //         item: { foodId: number; foodCount: number; foodImage: string; foodPrice: string; foodName: string };
-    //     }) => <OrderItem food={item} />,
-    //     [],
-    // );
 
     const totalPrice = orderItems.reduce((acc, obj) => acc + Number(obj.foodPrice) * obj.foodCount, 0);
 
@@ -114,9 +105,9 @@ export const OrderScreen = () => {
                             </RegularText>
                         </RowContainer>
                     </ColumnContainer>
-                    <View style={{ height: height * 0.55 }}>
+                    <ListContainer>
                         <ScrollView
-                            contentContainerStyle={{ width: width, alignItems: 'center' }}
+                            contentContainerStyle={stylesSuccess.contentContainer}
                             showsVerticalScrollIndicator={false}
                         >
                             {orderItems.map((order) => (
@@ -126,7 +117,7 @@ export const OrderScreen = () => {
                             <AppButton title={`Продолжить ${totalPrice} ₽`} onPress={onDetailsPress} />
                             <Gap scale={2} />
                         </ScrollView>
-                    </View>
+                    </ListContainer>
                 </RootContainer>
             )}
         </RootContainer>

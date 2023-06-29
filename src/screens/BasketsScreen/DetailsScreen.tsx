@@ -8,14 +8,21 @@ import { clearBasket } from '~store/slices/basketSlice';
 import { useCreateOrderMutation } from '~store/api/foodApi';
 import { getModalType, getOrderItems } from '~store/selectors';
 import { clearBadgeCount } from '~store/slices/foodSlice';
-import { Platform, ScrollView, View } from 'react-native';
+import { Platform, ScrollView } from 'react-native';
 import { Gap } from '~components/Gap';
 import { OrderSteps } from '~components/OrderSteps';
-import { CenteredView, LeftView, RootContainer, RowContainer } from '~screens/BasketsScreen/style';
+import {
+    CenteredView,
+    GapContainer,
+    LeftView,
+    ListContainer,
+    RootContainer,
+    RowContainer,
+    stylesSuccess,
+} from '~screens/BasketsScreen/style';
 import { Form } from '~components/Form';
 import { Error } from '~components/Modals/Error';
 import { CustomModal } from '~components/CustomModal';
-import { height } from '~constants/dimensions';
 
 export const DetailsScreen: FC<DetailsScreenProps> = ({ navigation }) => {
     const dispatch = useAppDispatch();
@@ -92,17 +99,17 @@ export const DetailsScreen: FC<DetailsScreenProps> = ({ navigation }) => {
 
             <Gap scale={2} />
 
-            <View style={{ height: height * 0.55 }}>
+            <ListContainer>
                 <ScrollView
                     scrollEventThrottle={16}
-                    contentContainerStyle={{ alignItems: 'center' }}
+                    contentContainerStyle={stylesSuccess.contentContainer}
                     showsVerticalScrollIndicator={false}
                     automaticallyAdjustKeyboardInsets={true}
                 >
                     <Form onOrderPress={onOrderPress} />
-                    <View style={{ height: height * 0.2 }} />
+                    <GapContainer />
                 </ScrollView>
-            </View>
+            </ListContainer>
 
             {modalType === 'error' && (
                 <CustomModal>

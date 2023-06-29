@@ -23,7 +23,6 @@ export const CenteredView = styled.View`
     margin-left: -20px;
 `;
 
-//flex: 1;
 export const FoodContainer = styled.View`
     padding: 10px 20px;
     height: ${height * 0.55}px;

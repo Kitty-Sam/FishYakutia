@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { StyleSheet } from 'react-native';
-import { width } from '~constants/dimensions';
+import { height, width } from '~constants/dimensions';
 
 export const LeftView = styled.View`
     margin-left: 20px;
@@ -40,6 +40,15 @@ export const SmileImage = styled.Image`
     width: 180px;
     height: 180px;
 `;
+
+export const ListContainer = styled.View`
+    height: ${height * 0.55}px;
+`;
+
+export const GapContainer = styled.View`
+    height: ${height * 0.2}px;
+`;
+
 export const stylesSuccess = StyleSheet.create({
     titleText: {
         textAlign: 'center',
@@ -51,5 +60,9 @@ export const stylesSuccess = StyleSheet.create({
     emptyBasketText: {
         width: width * 0.9,
         textAlign: 'center',
+    },
+    contentContainer: {
+        width: width,
+        alignItems: 'center',
     },
 });
