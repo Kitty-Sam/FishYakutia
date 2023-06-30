@@ -120,6 +120,9 @@ export const MenuScreen: FC<MenuScreenProps> = () => {
         }
     };
 
+    const showFilteredFoods = filteredFoods.filter((food) => !food.isDeleted);
+    const showAllFoods = allFoods && allFoods.filter((food) => !food.isDeleted);
+
     return (
         <RootContainer>
             <LeftMarginBlock>
@@ -148,13 +151,15 @@ export const MenuScreen: FC<MenuScreenProps> = () => {
                 </CategoriesContainer>
             </LeftMarginBlock>
             <FoodContainer>
-                <FlatList
-                    data={filteredFoods.length ? filteredFoods : allFoods}
-                    renderItem={renderFoodItem}
-                    numColumns={2}
-                    columnWrapperStyle={{ justifyContent: 'space-between' }}
-                    showsVerticalScrollIndicator={false}
-                />
+                {allFoods && (
+                    <FlatList
+                        data={filteredFoods.length ? showFilteredFoods : showAllFoods}
+                        renderItem={renderFoodItem}
+                        numColumns={2}
+                        columnWrapperStyle={{ justifyContent: 'space-between' }}
+                        showsVerticalScrollIndicator={false}
+                    />
+                )}
             </FoodContainer>
 
             {modalType === 'match' && (

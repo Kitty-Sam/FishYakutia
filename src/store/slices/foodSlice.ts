@@ -6,6 +6,7 @@ export interface IFood {
     images: [{ createdAt: Date; filename: string; foodId: number; id: string; path: any; updatedAt: string }];
     price: string;
     categoryId: number;
+    isDeleted: boolean;
 }
 
 export interface ICategory {
