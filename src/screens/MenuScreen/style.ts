@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { theme } from '~constants/theme';
+import { height, width } from '~constants/dimensions';
 
 export const CategoryContainer = styled.TouchableOpacity`
     border-radius: 9px;
@@ -23,8 +24,8 @@ export const CenteredView = styled.View`
 `;
 
 export const FoodContainer = styled.View`
-    flex: 1;
     padding: 10px 20px;
+    height: ${height * 0.55}px;
 `;
 
 export const LeftMarginBlock = styled.View`
@@ -32,7 +33,7 @@ export const LeftMarginBlock = styled.View`
 `;
 
 export const FoodItemContainer = styled.View`
-    width: 160px;
+    width: ${width * 0.4}px;
     background-color: ${theme.WHITE};
     border-radius: 20px;
     padding: 10px;

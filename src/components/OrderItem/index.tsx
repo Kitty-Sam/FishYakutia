@@ -7,16 +7,7 @@ import { RegularText } from '~components/RegularText';
 import { theme } from '~constants/theme';
 import { RoundButton } from '~components/Buttons/RoundButton';
 import { serverUrl } from '~constants/baseURL';
-
-interface IOrderItem {
-    food: {
-        foodId: number;
-        foodCount: number;
-        foodImage: string;
-        foodPrice: string;
-        foodName: string;
-    };
-}
+import { IOrderItem } from '~components/OrderItem/type';
 
 export const OrderItem: FC<IOrderItem> = ({ food }) => {
     const { foodId, foodCount, foodImage, foodPrice, foodName } = food;

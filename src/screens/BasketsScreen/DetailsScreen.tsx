@@ -8,15 +8,17 @@ import { clearBasket } from '~store/slices/basketSlice';
 import { useCreateOrderMutation } from '~store/api/foodApi';
 import { getModalType, getOrderItems } from '~store/selectors';
 import { clearBadgeCount } from '~store/slices/foodSlice';
-import { Platform } from 'react-native';
+import { Platform, ScrollView } from 'react-native';
 import { Gap } from '~components/Gap';
 import { OrderSteps } from '~components/OrderSteps';
 import {
     CenteredView,
+    GapContainer,
     LeftView,
+    ListContainer,
     RootContainer,
-    RootContainerCentered,
     RowContainer,
+    stylesSuccess,
 } from '~screens/BasketsScreen/style';
 import { Form } from '~components/Form';
 import { Error } from '~components/Modals/Error';
@@ -97,9 +99,17 @@ export const DetailsScreen: FC<DetailsScreenProps> = ({ navigation }) => {
 
             <Gap scale={2} />
 
-            <RootContainerCentered>
-                <Form onOrderPress={onOrderPress} />
-            </RootContainerCentered>
+            <ListContainer>
+                <ScrollView
+                    scrollEventThrottle={16}
+                    contentContainerStyle={stylesSuccess.contentContainer}
+                    showsVerticalScrollIndicator={false}
+                    automaticallyAdjustKeyboardInsets={true}
+                >
+                    <Form onOrderPress={onOrderPress} />
+                    <GapContainer />
+                </ScrollView>
+            </ListContainer>
 
             {modalType === 'error' && (
                 <CustomModal>

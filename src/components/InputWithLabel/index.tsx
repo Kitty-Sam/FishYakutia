@@ -4,15 +4,7 @@ import { RegularText } from '~components/RegularText';
 import { theme } from '~constants/theme';
 import { Gap } from '~components/Gap';
 import MaskInput from 'react-native-mask-input';
-
-export interface IInputWithLabel {
-    label: string;
-    placeholder: string;
-    onChangeText: (value: string) => void;
-    onBlur: (e: any) => void;
-    value: string;
-    hasPhone?: boolean;
-}
+import { IInputWithLabel } from '~components/InputWithLabel/type';
 
 export const InputWithLabel: FC<IInputWithLabel> = ({
     label,

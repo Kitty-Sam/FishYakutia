@@ -2,13 +2,7 @@ import React, { FC } from 'react';
 import { RegularText } from '~components/RegularText';
 import { theme } from '~constants/theme';
 import { ColumnContainer, Line, Round, RowContainer } from '~components/OrderSteps/style';
-
-export interface IOrdersProps {
-    orderColor: string;
-    orderBgColor: string;
-    detailsColor: string;
-    detailsBgColor: string;
-}
+import { IOrdersProps } from '~components/OrderSteps/type';
 
 export const OrderSteps: FC<IOrdersProps> = ({ orderColor, orderBgColor, detailsBgColor, detailsColor }) => {
     return (
