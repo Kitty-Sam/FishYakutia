@@ -15,4 +15,5 @@ export type RootStackParamList = {
 };
 
 export type MainScreenProps = BottomTabScreenProps<RootStackParamList, RootStackNavigationName.MAIN>;
+export type MenuScreenProps = BottomTabScreenProps<RootStackParamList, RootStackNavigationName.MENU>;
 export type BasketScreenProps = BottomTabScreenProps<RootStackParamList, RootStackNavigationName.BASKET_STACK>;

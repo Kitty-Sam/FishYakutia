@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Logo } from '~components/Logo';
 import {
     CategoriesContainer,
@@ -18,7 +18,7 @@ import { RegularText } from '~components/RegularText';
 import { useCommonFilterFoodMutation, useGetAllCategoriesQuery, useGetAllFoodsQuery } from '~store/api/foodApi';
 import { addBadgeCount, IFood, setFilteredFoods } from '~store/slices/foodSlice';
 import { SquareButton } from '~components/Buttons/SquareButton';
-import { getAllCategories, getFilteredFoods, getModalType } from '~store/selectors';
+import { getFilteredFoods, getModalType } from '~store/selectors';
 import { useAppDispatch, useAppSelector } from '~store/store';
 import { addOrderItem } from '~store/slices/basketSlice';
 import { CustomModal } from '~components/CustomModal';
@@ -27,22 +27,34 @@ import { Match } from '~components/Modals/Match';
 import { useSearch } from '~hooks/useSearch';
 import { SearchBar } from '~components/SearchBar';
 import { serverUrl } from '~constants/baseURL';
+import { MenuScreenProps } from '~navigation/RootStack/type';
+import { useIsFocused } from '@react-navigation/native';
 
-export const MenuScreen = () => {
+export const MenuScreen: FC<MenuScreenProps> = () => {
     const [category, setCategory] = useState<{ id: number; title: string }>({ id: 0, title: 'Все' });
 
-    const { data: allFoods } = useGetAllFoodsQuery();
-    useGetAllCategoriesQuery();
+    const { data: allFoods, refetch: refetchFoods } = useGetAllFoodsQuery();
+    const { data: allCategories, refetch: refetchCategories } = useGetAllCategoriesQuery();
+
+    const isFocused = useIsFocused();
+
+    const categories = allCategories && [{ id: 0, title: 'Все' }, ...allCategories];
 
     const filteredFoods = useAppSelector(getFilteredFoods);
     const modalType = useAppSelector(getModalType);
-    const categories = useAppSelector(getAllCategories);
 
     const { search, setSearch, filterBySearch } = useSearch(category?.id);
 
     const [commonFilterFood] = useCommonFilterFoodMutation();
 
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (isFocused) {
+            refetchFoods();
+            refetchCategories();
+        }
+    }, [isFocused]);
 
     useEffect(() => {
         if (!search) {
@@ -108,6 +120,9 @@ export const MenuScreen = () => {
         }
     };
 
+    const showFilteredFoods = filteredFoods.filter((food) => !food.isDeleted);
+    const showAllFoods = allFoods && allFoods.filter((food) => !food.isDeleted);
+
     return (
         <RootContainer>
             <LeftMarginBlock>
@@ -136,13 +151,15 @@ export const MenuScreen = () => {
                 </CategoriesContainer>
             </LeftMarginBlock>
             <FoodContainer>
-                <FlatList
-                    data={filteredFoods.length ? filteredFoods : allFoods}
-                    renderItem={renderFoodItem}
-                    numColumns={2}
-                    columnWrapperStyle={{ justifyContent: 'space-between' }}
-                    showsVerticalScrollIndicator={false}
-                />
+                {allFoods && (
+                    <FlatList
+                        data={filteredFoods.length ? showFilteredFoods : showAllFoods}
+                        renderItem={renderFoodItem}
+                        numColumns={2}
+                        columnWrapperStyle={{ justifyContent: 'space-between' }}
+                        showsVerticalScrollIndicator={false}
+                    />
+                )}
             </FoodContainer>
 
             {modalType === 'match' && (

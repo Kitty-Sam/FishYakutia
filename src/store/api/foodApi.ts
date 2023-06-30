@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Platform } from 'react-native';
 
 import { BASE_URL_ANDROID, BASE_URL_IOS } from '~constants/baseURL';
-import { IFood, setAllCategories, setAllFoods, setFilteredFoods } from '~store/slices/foodSlice';
-import { IOrder, setOrderNumber } from '~store/slices/basketSlice';
+import { IFood, setFilteredFoods } from '~store/slices/foodSlice';
+import { setOrderNumber } from '~store/slices/basketSlice';
 import { setModalType } from '~store/slices/modalSlice';
 
 export const foodsApi = createApi({
@@ -12,30 +12,17 @@ export const foodsApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: Platform.OS === 'android' ? `${BASE_URL_ANDROID}` : `${BASE_URL_IOS}`,
     }),
-    tagTypes: ['Foods'],
+    tagTypes: ['Foods', 'Categories', 'Filter'],
     endpoints: (builder) => ({
         getAllFoods: builder.query<IFood[], void>({
             query: () => 'foods-mobile',
             providesTags: ['Foods'],
-
-            async onQueryStarted(_args, { dispatch, queryFulfilled }) {
-                const { data: foods } = await queryFulfilled;
-                dispatch(setAllFoods(foods));
-            },
-        }),
-
-        getAllOrders: builder.query<IOrder[], void>({
-            query: () => 'orders',
         }),
 
         getAllCategories: builder.query<{ id: number; title: string }[], void>({
             query: () => ({
                 url: 'categories',
             }),
-            async onQueryStarted(_args, { dispatch, queryFulfilled }) {
-                const { data: categories } = await queryFulfilled;
-                dispatch(setAllCategories([{ id: 0, title: 'Все' }, ...categories]));
-            },
         }),
 
         filterFoodByCategoryId: builder.mutation<IFood[], { categoryId: number }>({
